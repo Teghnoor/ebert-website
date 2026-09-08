@@ -3,7 +3,7 @@
   'use strict';
 
   var ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var EN = window.EBERT_EN || {};
+  var EN = Object.assign({}, window.EBERT_EN || {}, window.EBERT_EN_UNTER || {});
   var DYN = window.EBERT_EN_DYN || {};
   var sprache = 'de';
 
@@ -82,6 +82,36 @@
         brenner.classList.remove('auf');
         brenner.setAttribute('aria-expanded', 'false');
       }
+    });
+  }
+
+  /* ================= Leistungen-Klappmenü ================= */
+  var klappKnopf = document.querySelector('.nav-klapp-knopf');
+  var klappInhalt = document.querySelector('.nav-klapp-inhalt');
+  if (klappKnopf && klappInhalt) {
+    var schmal = function () { return window.matchMedia('(max-width: 740px)').matches; };
+
+    function klappAuf(auf) {
+      klappInhalt.classList.toggle('auf', auf);
+      klappKnopf.classList.toggle('offen', auf);
+      klappKnopf.setAttribute('aria-expanded', auf ? 'true' : 'false');
+    }
+
+    klappKnopf.addEventListener('click', function (e) {
+      e.stopPropagation();
+      klappAuf(!klappInhalt.classList.contains('auf'));
+    });
+
+    // Am Rechner öffnet auch das Überfahren mit der Maus
+    var klapp = klappKnopf.parentNode;
+    klapp.addEventListener('mouseenter', function () { if (!schmal()) klappAuf(true); });
+    klapp.addEventListener('mouseleave', function () { if (!schmal()) klappAuf(false); });
+
+    document.addEventListener('click', function (e) {
+      if (!klapp.contains(e.target)) klappAuf(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') klappAuf(false);
     });
   }
 

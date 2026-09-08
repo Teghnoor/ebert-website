@@ -489,7 +489,7 @@ textarea { min-height: 110px; resize: vertical; }
   .fuss-raster { grid-template-columns: 1fr 1fr; }
 }
 
-@media (max-width: 740px) {
+@media (max-width: 900px) {
   .nav {
     position: fixed; left: 0; right: 0; top: var(--nav);
     flex-direction: column; gap: 0; margin: 0;
@@ -521,4 +521,203 @@ textarea { min-height: 110px; resize: vertical; }
   .zeig, .wort { opacity: 1 !important; transform: none !important; }
   .sticky-bild img.an { opacity: 1; }
   .hero-bild img { transform: none; animation: none; }
+}
+
+/* ==========================================================================
+   V3 — Struktur nach dachbeschichtung-profi.de:
+   Top-Leiste, Leistungen-Klappmenü, Unterseiten, Probeflächen-Pitch
+   ========================================================================== */
+
+/* ---------- Top-Leiste ---------- */
+.oben-leiste {
+  background: var(--tinte); color: rgba(255,255,255,.9);
+  font-size: 13px; position: relative; z-index: 85;
+}
+.oben-inhalt { display: flex; align-items: center; gap: 26px; height: 38px; }
+.oben-leiste a { color: rgba(255,255,255,.9); }
+.oben-leiste a:hover { color: #fff; text-decoration: none; }
+.oben-rechts { margin-left: auto; color: rgba(255,255,255,.6); }
+
+/* ---------- Klappmenü Leistungen ---------- */
+.nav-klapp { position: relative; }
+.nav-klapp-knopf {
+  background: none; border: 0; cursor: pointer; font-family: inherit;
+  font-size: 12px; color: var(--tinte); opacity: .85; letter-spacing: -.01em;
+  padding: 0; display: inline-flex; align-items: center; gap: 4px;
+}
+.nav-klapp-knopf:hover, .nav-klapp-knopf.offen { opacity: 1; }
+.nav-klapp-knopf span { font-size: 9px; transition: transform .2s var(--kurve); display: inline-block; }
+.nav-klapp-knopf.offen span { transform: rotate(180deg); }
+.nav-klapp-inhalt {
+  position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(-8px);
+  background: #fff; backdrop-filter: blur(20px);
+  border: 1px solid var(--linie); border-radius: 14px;
+  padding: 8px; min-width: 246px;
+  box-shadow: 0 12px 34px rgba(0,0,0,.12);
+  opacity: 0; pointer-events: none;
+  transition: opacity .22s var(--kurve), transform .28s var(--kurve);
+}
+.nav-klapp-inhalt.auf { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+.nav-klapp-inhalt a {
+  display: block; padding: 9px 13px; border-radius: 9px;
+  font-size: 14px; color: var(--tinte); opacity: 1;
+}
+.nav-klapp-inhalt a:hover { background: var(--grau); text-decoration: none; }
+.nav-klapp-inhalt a.an { color: var(--blau); font-weight: 500; }
+.knopf-klein { font-size: 13px; padding: 8px 16px; }
+
+/* ---------- Unterseiten-Hero ---------- */
+.unter-hero {
+  position: relative; min-height: 460px; display: flex; align-items: flex-end;
+  background: var(--schwarz); color: #fff; overflow: hidden;
+}
+.unter-hero-bild { position: absolute; inset: 0; }
+.unter-hero-bild img { width: 100%; height: 100%; object-fit: cover; }
+.unter-hero-bild::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.32) 40%, rgba(0,0,0,.86) 100%);
+}
+.unter-hero-text { position: relative; z-index: 2; padding: 80px 24px 56px; }
+.unter-hero-text h1 { color: #fff; margin: 10px 0 0; }
+.unter-hero-text .lead { color: rgba(255,255,255,.86); margin-top: 16px; max-width: 46ch; }
+.marke-hell {
+  font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.66); margin: 0;
+}
+.schmal { max-width: 760px; }
+
+/* ---------- Verfahren ---------- */
+.verfahren { display: grid; gap: 0; }
+.verfahren-block {
+  display: flex; gap: 26px; padding: 28px 0;
+  border-top: 1px solid var(--linie);
+}
+.verfahren-block:last-child { border-bottom: 1px solid var(--linie); }
+.verfahren-nr {
+  font-size: 15px; font-weight: 600; color: var(--leise);
+  flex-shrink: 0; padding-top: 3px; min-width: 34px;
+}
+.verfahren-block h3 { font-size: 1.28rem; margin: 0 0 8px; }
+.verfahren-block p { margin: 0; color: var(--leise); font-size: 16px; }
+
+/* ---------- Zwei Spalten mit Probe-Kasten ---------- */
+.zwei-spalten { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.probe-kasten {
+  background: var(--tinte); color: #fff; border-radius: 20px; padding: 38px 36px;
+}
+.probe-kasten .eyebrow { color: var(--leise-dunkel); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+.probe-kasten h3 { font-size: 1.6rem; margin: 8px 0 14px; color: #fff; }
+.probe-kasten p { color: var(--leise-dunkel); font-size: 16px; }
+.probe-kasten .punkte { margin: 20px 0 26px; }
+.probe-kasten .punkte li { color: rgba(255,255,255,.92); font-size: 15.5px; }
+.probe-kasten .punkte li::before { border-color: var(--gruen); }
+
+/* ---------- FAQ ---------- */
+.faq {
+  border-bottom: 1px solid var(--linie); padding: 4px 0;
+}
+.faq summary {
+  cursor: pointer; list-style: none; padding: 18px 34px 18px 0;
+  font-size: 17.5px; font-weight: 500; position: relative;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: '+'; position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+  font-size: 22px; font-weight: 300; color: var(--leise);
+  transition: transform .25s var(--kurve);
+}
+.faq[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq p { margin: 0 0 20px; color: var(--leise); font-size: 16px; max-width: 66ch; }
+
+/* ---------- Weitere Leistungen ---------- */
+.weiter-raster { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.weiter-karte {
+  position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 3;
+  display: block; color: #fff;
+}
+.weiter-karte img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--kurve); }
+.weiter-karte:hover img { transform: scale(1.05); }
+.weiter-karte:hover { text-decoration: none; }
+.weiter-karte::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.05) 40%, rgba(0,0,0,.72) 100%);
+}
+.weiter-karte span {
+  position: absolute; left: 20px; right: 20px; bottom: 18px; z-index: 2;
+  font-size: 17px; font-weight: 500;
+}
+
+/* ---------- Probeflächen-Sektion auf der Startseite ---------- */
+.probe-raster { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 44px; }
+.probe-schritt {
+  background: #fff; border: 1px solid var(--linie); border-radius: 16px; padding: 26px 24px;
+}
+.abschnitt.grau .probe-schritt { background: #fff; }
+.probe-schritt b {
+  display: block; font-size: 13px; font-weight: 600; color: var(--blau);
+  letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px;
+}
+.probe-schritt h3 { font-size: 1.15rem; margin: 0 0 8px; }
+.probe-schritt p { margin: 0; font-size: 15px; color: var(--leise); }
+
+/* ---------- Vergleich Reinigung vs. Neu ---------- */
+.vergleich { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+.vergleich-karte { border-radius: 20px; padding: 34px 32px; }
+.vergleich-karte.schlecht { background: var(--grau); }
+.vergleich-karte.gut { background: var(--tinte); color: #fff; }
+.vergleich-karte h3 { font-size: 1.45rem; margin: 0 0 6px; }
+.vergleich-karte.gut h3 { color: #fff; }
+.vergleich-preis { font-size: 2.1rem; font-weight: 600; letter-spacing: -.015em; margin: 14px 0 4px; display: block; }
+.vergleich-karte .klein { font-size: 13.5px; }
+.vergleich-karte.gut .klein { color: var(--leise-dunkel); }
+.vergleich-karte ul { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 9px; }
+.vergleich-karte li { font-size: 15px; padding-left: 22px; position: relative; }
+.vergleich-karte.schlecht li::before { content: '−'; position: absolute; left: 4px; color: var(--leise); }
+.vergleich-karte.gut li::before { content: '✓'; position: absolute; left: 0; color: var(--gruen); font-size: 13px; }
+
+/* ---------- Eigenschaften-Raster ---------- */
+.eigenschaften { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 44px; }
+.eigenschaft-icon {
+  width: 44px; height: 44px; border-radius: 12px; background: var(--grau);
+  display: grid; place-items: center; font-size: 20px; margin-bottom: 16px;
+}
+.abschnitt.grau .eigenschaft-icon { background: #fff; }
+.eigenschaft h3 { font-size: 1.15rem; margin: 0 0 8px; }
+.eigenschaft p { margin: 0; font-size: 15px; color: var(--leise); }
+
+/* ---------- Über uns ---------- */
+.ueber-raster { display: grid; grid-template-columns: 1fr 1.05fr; gap: 60px; align-items: center; }
+.ueber-bild { border-radius: 20px; overflow: hidden; aspect-ratio: 4 / 3; }
+.ueber-bild img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- Galerie „Unsere Arbeit" ---------- */
+.galerie { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
+.galerie img { border-radius: 14px; aspect-ratio: 1; object-fit: cover; width: 100%; }
+
+/* ---------- Schmal ---------- */
+@media (max-width: 900px) {
+  .zwei-spalten, .vergleich, .ueber-raster { grid-template-columns: 1fr; gap: 32px; }
+  .probe-raster, .eigenschaften { grid-template-columns: 1fr 1fr; }
+  .weiter-raster { grid-template-columns: 1fr; }
+  .galerie { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 900px) {
+  .oben-inhalt { gap: 16px; font-size: 12px; overflow-x: auto; white-space: nowrap; }
+  .oben-rechts { display: none; }
+  .probe-raster, .eigenschaften { grid-template-columns: 1fr; }
+  .nav-klapp { width: 100%; }
+  .nav-klapp-knopf {
+    width: 100%; justify-content: space-between; padding: 14px 24px;
+    font-size: 16px; border-bottom: 1px solid rgba(0,0,0,.05);
+  }
+  .nav-klapp-inhalt {
+    position: static; transform: none; opacity: 1; pointer-events: auto;
+    border: 0; box-shadow: none; border-radius: 0; padding: 0 0 0 12px;
+    background: var(--grau); display: none; min-width: 0;
+  }
+  .nav-klapp-inhalt.auf { display: block; transform: none; }
+  .kopf-rechts .knopf-klein { display: none; }
+  .verfahren-block { flex-direction: column; gap: 10px; }
+  .unter-hero-text { padding: 60px 24px 44px; }
 }

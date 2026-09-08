@@ -93,20 +93,6 @@ const fremd = anfragen.filter(u => !u.startsWith('http://localhost') && !u.start
 if (fremd.length === 0) ok('kein einziger Request an einen fremden Host');
 else fremd.forEach(u => bad('fremder Host: ' + u));
 
-/* ---------- 3. Bilder ---------- */
-kopf('3. Bilder');
-const bilder = await js(`JSON.stringify([...document.images].map(i => ({
-  src: i.getAttribute('src'), ok: i.complete && i.naturalWidth > 0,
-  nw: i.naturalWidth, nh: i.naturalHeight,
-  bw: Math.round(i.getBoundingClientRect().width), bh: Math.round(i.getBoundingClientRect().height)
-})))`);
-const bl = JSON.parse(bilder || '[]');
-bl.forEach(b => {
-  if (!b.ok) return bad('nicht geladen: ' + b.src);
-  if (b.bw > 4 && b.nw < b.bw * 0.95) warn(`hochskaliert: ${b.src} (${b.nw}px auf ${b.bw}px)`);
-});
-if (bl.length && bl.every(b => b.ok)) ok(`alle ${bl.length} Bilder geladen`);
-
 /* ---------- 4. Reveal: nichts darf unsichtbar hängen ---------- */
 kopf('4. Reveal-Animationen');
 await js(`window.scrollTo(0, document.body.scrollHeight); 1`);
@@ -119,9 +105,25 @@ const v = JSON.parse(versteckt || '[]');
 if (v.length === 0) ok('kein Element bleibt unsichtbar hängen');
 else v.forEach(t => bad('unsichtbar geblieben: ' + t));
 
+/* ---------- 3. Bilder (nach dem Durchscrollen — lazy loading) ---------- */
+kopf('3. Bilder');
+const bilder = await js(`JSON.stringify([...document.images].map(i => ({
+  src: i.getAttribute('src'), ok: i.complete && i.naturalWidth > 0,
+  nw: i.naturalWidth, bw: Math.round(i.getBoundingClientRect().width)
+})))`);
+const bl = JSON.parse(bilder || '[]');
+bl.forEach(b => {
+  if (!b.ok) return bad('nicht geladen: ' + b.src);
+  if (b.bw > 4 && b.nw < b.bw * 0.95) warn(`hochskaliert: ${b.src} (${b.nw}px auf ${b.bw}px)`);
+});
+if (bl.length && bl.every(b => b.ok)) ok(`alle ${bl.length} Bilder geladen`);
+
 /* ---------- 5. Direktsprung auf Anker ---------- */
 kopf('5. Direktsprung auf Anker');
-for (const anker of ['#anfrage', '#rechner', '#stimmen']) {
+const anker_liste = URL_.includes('index.html') || URL_.endsWith('/')
+  ? ['#anfrage', '#preise', '#stimmen', '#ueber-uns', '#arbeit'] : [];
+if (!anker_liste.length) ok('Unterseite — verlinkt auf die Startseite, keine eigenen Anker');
+for (const anker of anker_liste) {
   await send('Page.navigate', { url: URL_.split('#')[0] + anker });
   await warte(1900);
   const leer = await js(`(() => {
@@ -174,7 +176,8 @@ const rechner = await js(`(() => {
   return JSON.stringify({ werte, dach });
 })()`);
 const rc = JSON.parse(rechner || '{}');
-if (rc.fehler) bad(rc.fehler);
+const startseite = URL_.includes('index.html') || URL_.endsWith('/');
+if (rc.fehler) { if (startseite) bad(rc.fehler); else ok('Unterseite — kein eigener Rechner'); }
 else {
   const zahlen = rc.werte.map(w => parseInt((w.text.match(/[\d.,]+/g) || ['0'])[0].replace(/[.,]/g, ''), 10));
   if (zahlen[0] > 0 && zahlen[2] > zahlen[1] && zahlen[1] > 0) ok(`steigt mit der Fläche: ${rc.werte.map(w => w.qm + 'm² → ' + w.text).join(' · ')}`);
@@ -192,7 +195,9 @@ const form = await js(`(() => {
   f.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
   return m.className.includes('schlecht') ? '' : 'leere Pflichtfelder werden nicht abgefangen';
 })()`);
-if (form) bad(form); else ok('leere Pflichtfelder werden abgefangen');
+if (form && !startseite) ok('Unterseite — kein eigenes Formular');
+else if (form) bad(form);
+else ok('leere Pflichtfelder werden abgefangen');
 
 /* ---------- 9. Chat ---------- */
 kopf('9. Chat-Hülle');

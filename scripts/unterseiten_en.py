@@ -1,0 +1,214 @@
+#!/usr/bin/env python3
+"""Englische Fassung aller Unterseiten-Texte.
+
+Schlüssel = der deutsche Text exakt so, wie er in `baue-unterseiten.py` steht.
+Wird von `baue-i18n-unterseiten.py` zu `i18n-unterseiten.js` zusammengesetzt.
+"""
+
+EN = {
+    # ---------------- Gehwege & Einfahrten ----------------
+    'Gehwege &amp; Einfahrten reinigen': 'Cleaning paths &amp; driveways',
+    'Die Fläche, die jeder Besucher zuerst betritt.': 'The surface every visitor steps on first.',
+    'Warum Einfahrten grau werden': 'Why driveways turn grey',
+    'Pflaster und Beton sind offenporig. Über die Jahre setzt sich Feinstaub in diese Poren, Regenwasser wäscht ihn ein, und aus der ursprünglichen Farbe wird ein gleichmäßiges Grau. Das ist kein Schmutz, der sich abkehren lässt — er sitzt in der Oberfläche.':
+        'Paving and concrete are open-pored. Over the years fine dust settles into those pores, rain washes it in, and the original colour turns into a uniform grey. This is not dirt you can sweep away — it sits inside the surface.',
+    'Dazu kommt der Grünbelag. Algen und Moos brauchen wenig: Feuchtigkeit, etwas Schatten, eine raue Oberfläche. In den Fugen finden sie beides. Was dort wächst, hält die Nässe im Belag und beschleunigt die Verwitterung von unten.':
+        'Then there is the green growth. Algae and moss need very little: moisture, a bit of shade, a rough surface. The joints offer all of it. Whatever grows there holds damp in the surface and speeds up weathering from below.',
+    'Rotierender Flächenreiniger statt freier Lanze': 'Rotary surface cleaner instead of a free lance',
+    'Eine frei geführte Lanze hinterlässt Streifen und raut die Oberfläche auf. Wir arbeiten mit einem geschlossenen Flächenreiniger, der den Druck gleichmäßig verteilt — kein Rattermuster, keine ausgewaschenen Stellen.':
+        'A hand-held lance leaves streaks and roughens the surface. We work with an enclosed surface cleaner that spreads the pressure evenly — no chatter marks, no washed-out patches.',
+    'Druck nach Material, nicht nach Zeitplan': 'Pressure to suit the material, not the schedule',
+    'Betonpflaster verträgt mehr als Waschbeton, Waschbeton mehr als Naturstein. Wir stellen den Druck pro Fläche ein. Das dauert länger und ist der Grund, warum die Oberfläche danach noch intakt ist.':
+        'Concrete block takes more than exposed aggregate, exposed aggregate more than natural stone. We set the pressure for each surface. It takes longer, and it is the reason the surface is still intact afterwards.',
+    'Fugen ausspülen, dann neu verfüllen': 'Flush the joints, then refill them',
+    'Beim Reinigen wird zwangsläufig Fugenmaterial gelöst. Wer das nicht ersetzt, bekommt binnen eines Jahres wackelnde Steine. Wir verfüllen nach — auf Wunsch mit Harzfuge, in der kein Unkraut mehr wächst.':
+        'Cleaning inevitably loosens joint material. If it is not replaced, you get wobbling stones within a year. We refill — with a resin joint on request, in which no weeds grow.',
+    'Imprägnierung als Abschluss': 'Sealing as the final step',
+    'Die Schutzschicht schließt die Poren. Wasser perlt ab, Schmutz findet keinen Halt, Grünbelag kommt deutlich langsamer zurück. Darauf geben wir fünf Jahre Garantie.':
+        'The protective layer closes the pores. Water beads off, dirt finds no hold, green growth comes back far more slowly. We give a five-year guarantee on it.',
+    'Diese Beläge reinigen wir': 'Surfaces we clean',
+    'Betonpflaster und Verbundsteine': 'Concrete block and interlocking pavers',
+    'Waschbeton und Betonplatten': 'Exposed aggregate and concrete slabs',
+    'Natursteinpflaster und Kopfsteinpflaster': 'Natural stone and cobble paving',
+    'Asphalt und Teerdecken': 'Asphalt and tarmac',
+    'Sichtbeton und Estrich': 'Fair-faced concrete and screed',
+    'Gehwegplatten aller Formate': 'Paving slabs in all formats',
+    'Wie lange dauert eine Einfahrt?': 'How long does a driveway take?',
+    'Eine Einfahrt von 80 bis 120 m² schaffen wir in der Regel an einem Tag, inklusive Verfugung. Kommt eine Imprägnierung dazu, braucht die Fläche vorher einen Tag Trockenzeit.':
+        'A driveway of 80 to 120 m² usually takes us a day, including re-grouting. If sealing is added, the surface needs a day to dry beforehand.',
+    'Wird der Stein durch den Hochdruck beschädigt?': 'Does high pressure damage the stone?',
+    'Nicht bei richtig eingestelltem Druck und einem Flächenreiniger. Schäden entstehen fast immer durch eine frei geführte Lanze mit zu viel Druck auf zu kleiner Fläche. Genau deshalb arbeiten wir anders.':
+        'Not with correctly set pressure and a surface cleaner. Damage almost always comes from a hand-held lance with too much pressure on too small an area. That is precisely why we work differently.',
+    'Was passiert mit den Pflanzen am Rand?': 'What happens to the plants at the edges?',
+    'Wir decken Beete und empfindliche Bepflanzung ab. Die von uns eingesetzten Mittel sind biologisch abbaubar.':
+        'We cover beds and delicate planting. The products we use are biodegradable.',
+    'Kommt der Grünbelag wieder?': 'Will the green growth come back?',
+    'Ohne Imprägnierung nach zwei bis drei Jahren, je nach Lage. Mit Imprägnierung deutlich später — und wenn er innerhalb der fünf Jahre stark zurückkommt, reinigen wir kostenlos nach.':
+        'Without sealing, after two to three years depending on the location. With sealing, considerably later — and if it returns heavily within the five years, we clean again free of charge.',
+
+    # ---------------- Dach & Überdachung ----------------
+    'Dach &amp; Überdachung reinigen': 'Cleaning roofs &amp; canopies',
+    'Moos kostet das Dach Lebensdauer. Nicht Optik.': 'Moss costs the roof its lifespan. Not its looks.',
+    'Warum Moos auf dem Dach ein Problem ist': 'Why moss on a roof is a problem',
+    'Moos sieht nicht nur alt aus, es hält Wasser. Ein bemooster Ziegel trocknet nach Regen deutlich langsamer ab. Bei Frost gefriert diese Feuchtigkeit in der Oberfläche und sprengt sie Stück für Stück auf — der Ziegel wird porös, lange bevor er sein Alter erreicht hat.':
+        'Moss does not just look old, it holds water. A mossy tile dries far more slowly after rain. In frost that moisture freezes inside the surface and breaks it apart piece by piece — the tile turns porous long before it reaches its age.',
+    'Dazu kommt der praktische Teil: Was sich vom Dach löst, landet in der Rinne. Verstopfte Rinnen und Einläufe führen zu Wasser an der Fassade und im schlechtesten Fall zu Feuchtigkeit im Mauerwerk. Wir reinigen deshalb immer beides.':
+        'Then the practical part: whatever comes off the roof ends up in the gutter. Blocked gutters and inlets lead to water on the facade and, at worst, damp in the masonry. That is why we always clean both.',
+    'Von der Traufe zum First': 'From eaves to ridge',
+    'Wir arbeiten von unten nach oben, damit kein Wasser unter die Ziegel gedrückt wird. Das ist der Punkt, an dem unsachgemäße Dachreinigung tatsächlich Schaden anrichtet.':
+        'We work from the bottom up so that no water is forced under the tiles. This is the point at which improper roof cleaning genuinely causes damage.',
+    'Angepasster Druck je Eindeckung': 'Pressure matched to the roof covering',
+    'Ein Betondachstein verträgt mehr als ein alter Tonziegel, Faserzement wieder etwas anderes. Wir prüfen die Eindeckung, bevor wir anfangen — und sagen es Ihnen, wenn eine Fläche nicht mehr reinigungsfähig ist.':
+        'A concrete tile takes more than an old clay tile, fibre cement is different again. We check the covering before we start — and tell you if a surface can no longer be cleaned.',
+    'Rinnen und Einläufe gehören dazu': 'Gutters and inlets are part of the job',
+    'Nach der Reinigung werden Dachrinnen und Fallrohre geräumt und auf Durchfluss geprüft. Das ist kein Zusatz, sondern Teil der Arbeit.':
+        'After cleaning, gutters and downpipes are cleared and checked for flow. That is not an extra, it is part of the work.',
+    'Nachbehandlung gegen Wiederbewuchs': 'Aftercare against regrowth',
+    'Auf Wunsch behandeln wir die gereinigte Fläche nach, damit Moos und Flechten nicht sofort zurückkommen. Auch hier gilt die Fünf-Jahres-Garantie.':
+        'On request we treat the cleaned surface so that moss and lichen do not come straight back. The five-year guarantee applies here too.',
+    'Diese Dächer und Überdachungen reinigen wir': 'Roofs and canopies we clean',
+    'Ton- und Betondachziegel': 'Clay and concrete roof tiles',
+    'Faserzement und Wellplatten': 'Fibre cement and corrugated sheets',
+    'Blech- und Trapezdächer': 'Sheet metal and trapezoidal roofs',
+    'Carports und Garagendächer': 'Carports and garage roofs',
+    'Terrassenüberdachungen aus Glas oder Kunststoff': 'Patio roofs in glass or plastic',
+    'Wintergärten von außen': 'Conservatories from the outside',
+    'Steigen Sie auf jedes Dach?': 'Do you go up on every roof?',
+    'Auf die meisten. Wo die Statik oder der Zustand der Eindeckung es nicht zulässt, arbeiten wir vom Gerüst, von der Hebebühne oder mit der Teleskoplanze vom Boden. Was möglich ist, sehen wir bei der Besichtigung.':
+        'Most of them. Where the structure or the condition of the covering does not allow it, we work from scaffolding, a lift platform, or with a telescopic lance from the ground. We establish what is possible during the inspection.',
+    'Ist eine Reinigung besser als eine Neueindeckung?': 'Is cleaning better than a new roof covering?',
+    'Fast immer — solange die Ziegel intakt sind. Eine Neueindeckung kostet ein Vielfaches. Wenn die Substanz nicht mehr trägt, sagen wir Ihnen das offen, statt eine Reinigung zu verkaufen, die nichts bringt.':
+        'Almost always — as long as the tiles are sound. Re-covering costs many times more. If the substance no longer holds up, we say so openly instead of selling a cleaning job that achieves nothing.',
+    'Was ist mit einer Dachbeschichtung?': 'What about a roof coating?',
+    'Eine Beschichtung ist Farbe auf dem Ziegel. Sie kann sinnvoll sein, ist aber kein Ersatz für eine saubere Vorreinigung — ohne die hält keine Beschichtung. Wir beraten Sie ehrlich, was Ihr Dach braucht.':
+        'A coating is paint on the tile. It can make sense, but it is no substitute for proper prior cleaning — without that, no coating lasts. We advise you honestly on what your roof needs.',
+    'Wie lange dauert ein Einfamilienhaus?': 'How long does a detached house take?',
+    'Ein bis zwei Arbeitstage, je nach Fläche, Neigung und Verschmutzungsgrad. Die Rinnenreinigung ist darin enthalten.':
+        'One to two working days, depending on area, pitch and degree of soiling. Gutter cleaning is included.',
+
+    # ---------------- Terrasse & Naturstein ----------------
+    'Terrasse &amp; Naturstein reinigen': 'Cleaning patios &amp; natural stone',
+    'Empfindliche Beläge vertragen keinen groben Druck.': 'Delicate surfaces cannot take rough pressure.',
+    'Warum Naturstein Sonderbehandlung braucht': 'Why natural stone needs special treatment',
+    'Naturstein ist nicht gleich Naturstein. Marmor und Kalkstein reagieren auf säurehaltige Reiniger, Sandstein ist weich und lässt sich mit zu viel Druck regelrecht abtragen, Granit verträgt fast alles. Wer alle Beläge gleich behandelt, ruiniert die Hälfte davon.':
+        'Natural stone is not all the same. Marble and limestone react to acidic cleaners, sandstone is soft and can literally be worn away with too much pressure, granite takes almost anything. Treat every surface the same and you ruin half of them.',
+    'Bei Terrassen kommt hinzu, dass sie meist an das Haus grenzen. Was hier an Wasser und Reinigungsmittel anfällt, darf nicht in die Fuge zur Fassade oder in die Kellerlichtschächte laufen. Das ist Handwerk, keine Kraftfrage.':
+        'With patios there is the added point that they usually adjoin the house. The water and cleaning agent used must not run into the joint against the facade or into basement light wells. That is craftsmanship, not a question of force.',
+    'Materialbestimmung vor dem ersten Handgriff': 'Identify the material before touching anything',
+    'Wir stellen fest, womit wir es zu tun haben, und wählen Druck und Mittel danach. An einer unauffälligen Stelle prüfen wir das Ergebnis, bevor die ganze Fläche drankommt.':
+        'We establish what we are dealing with and choose pressure and product accordingly. We test the result in an inconspicuous spot before the whole surface follows.',
+    'Niederdruck und Bürste, wo Hochdruck schadet': 'Low pressure and brush where high pressure harms',
+    'Bei weichem Sandstein oder verlegtem Marmor arbeiten wir mit Niederdruck und rotierender Bürste. Das dauert länger, erhält aber die Oberfläche.':
+        'On soft sandstone or laid marble we work with low pressure and a rotating brush. It takes longer, but it preserves the surface.',
+    'Kanten, Setzstufen und Anschlüsse von Hand': 'Edges, risers and junctions by hand',
+    'Treppenkanten und der Anschluss zur Fassade werden von Hand nachgearbeitet. Genau dort sieht man später, ob sorgfältig gearbeitet wurde.':
+        'Step edges and the junction with the facade are finished by hand. That is exactly where you can later tell whether the work was done carefully.',
+    'Schutzimprägnierung passend zum Stein': 'Protective sealing matched to the stone',
+    'Für Naturstein gibt es andere Imprägnierungen als für Beton. Wir wählen die, die den Stein atmen lässt, statt ihn zu versiegeln.':
+        'Natural stone takes different sealers than concrete. We choose the one that lets the stone breathe rather than sealing it shut.',
+    'Marmor und Kalkstein': 'Marble and limestone',
+    'Granit und Basalt': 'Granite and basalt',
+    'Sandstein und Travertin': 'Sandstone and travertine',
+    'Feinsteinzeug und Keramikplatten': 'Porcelain and ceramic slabs',
+    'Betonwerkstein und Terrazzo': 'Cast stone and terrazzo',
+    'Treppen, Podeste und Eingangsbereiche': 'Steps, landings and entrance areas',
+    'Kann Naturstein durch Reinigung stumpf werden?': 'Can cleaning make natural stone dull?',
+    'Ja — bei falschem Mittel oder zu viel Druck. Polierte Oberflächen reagieren besonders empfindlich auf Säure. Deshalb bestimmen wir das Material vorher und testen an einer verdeckten Stelle.':
+        'Yes — with the wrong product or too much pressure. Polished surfaces are particularly sensitive to acid. That is why we identify the material first and test in a hidden spot.',
+    'Bekommen Sie Rotweinflecken und Fett heraus?': 'Can you get out red wine stains and grease?',
+    'Meistens ja, aber ehrlich gesagt nicht immer vollständig. Öl zieht in offenporigen Stein tief ein. Bei der Probefläche sehen Sie, was realistisch geht — und wir versprechen Ihnen nichts, was wir nicht halten.':
+        'Usually yes, but honestly not always completely. Oil penetrates deep into open-pored stone. The test area shows you what is realistically possible — and we promise you nothing we cannot deliver.',
+    'Was kostet eine Terrasse?': 'What does a patio cost?',
+    'Das hängt stark vom Material und vom Zustand ab. Deshalb gibt es die kostenlose Probefläche: Sie sehen das Ergebnis und bekommen danach einen Festpreis.':
+        'That depends heavily on the material and its condition. That is what the free test area is for: you see the result and then receive a fixed price.',
+    'Wie oft sollte man eine Terrasse reinigen?': 'How often should a patio be cleaned?',
+    'Ohne Imprägnierung etwa alle zwei bis drei Jahre. Mit Schutzschicht deutlich seltener.':
+        'Without sealing, roughly every two to three years. With a protective layer, considerably less often.',
+
+    # ---------------- Fassadenreinigung ----------------
+    'Die Alternative zum Neuanstrich — zu einem Bruchteil.': 'The alternative to repainting — at a fraction of the cost.',
+    'Grünbelag ist kein Anstrichproblem': 'Green growth is not a paint problem',
+    'Die grünen und schwarzen Schleier an Nordseiten und unter Fenstersimsen sind Algen und Flechten. Sie sitzen auf der Farbe, nicht darunter. Ein neuer Anstrich deckt sie zu und kostet ein Vielfaches — nach zwei bis drei Jahren steht dieselbe Fläche wieder da, wo sie war.':
+        'The green and black films on north-facing walls and beneath window sills are algae and lichen. They sit on the paint, not under it. A new coat covers them and costs many times more — after two to three years the same wall is back where it started.',
+    'Eine Reinigung entfernt den Bewuchs samt Wurzelwerk und legt die ursprüngliche Farbe frei. Erst wenn die Fassade sauber ist, lässt sich überhaupt beurteilen, ob ein Anstrich nötig ist. Meistens ist er es nicht.':
+        'Cleaning removes the growth along with its roots and exposes the original colour. Only once the facade is clean can you judge whether a coat of paint is needed at all. Usually it is not.',
+    'Niedriger Druck, längere Einwirkzeit': 'Low pressure, longer dwell time',
+    'Fassaden reinigt man nicht mit Kraft, sondern mit Chemie und Zeit. Wir tragen das Mittel auf, lassen es arbeiten und spülen anschließend mit niedrigem Druck ab. So bleibt der Putz unversehrt.':
+        'Facades are not cleaned with force but with chemistry and time. We apply the product, let it work and then rinse at low pressure. That way the render stays intact.',
+    'Biologisch abbaubare Mittel': 'Biodegradable products',
+    'Was an der Fassade herunterläuft, landet im Beet. Deshalb setzen wir Mittel ein, die sich abbauen, und decken empfindliche Bepflanzung ab.':
+        'Whatever runs down the facade ends up in the flower bed. That is why we use products that break down, and cover delicate planting.',
+    'Klinker und Verblendung mit anderem Ansatz': 'A different approach for brick and cladding',
+    'Klinker ist hart, die Fuge dazwischen nicht. Wer mit vollem Druck über eine Klinkerfassade geht, spült die Fugen aus. Wir arbeiten fugenschonend.':
+        'Brick is hard, the mortar between it is not. Going over a brick facade at full pressure washes the joints out. We work in a way that protects them.',
+    'Auf Wunsch Schutzbehandlung': 'Protective treatment on request',
+    'Eine Imprägnierung lässt Wasser abperlen und verzögert den erneuten Bewuchs deutlich. Fünf Jahre Garantie, wie bei allen unseren Versiegelungen.':
+        'Sealing makes water bead off and delays regrowth considerably. Five-year guarantee, as with all our sealing work.',
+    'Diese Fassaden reinigen wir': 'Facades we clean',
+    'Mineralischer und Kunstharzputz': 'Mineral and synthetic resin render',
+    'Klinker und Verblendmauerwerk': 'Brick and facing masonry',
+    'Wärmedämmverbundsysteme': 'External wall insulation systems',
+    'Faserzementplatten und Eternit': 'Fibre cement panels and Eternit',
+    'Sichtbeton': 'Fair-faced concrete',
+    'Sockelbereiche und Vordächer': 'Plinth areas and porch roofs',
+    'Ist Reinigung wirklich günstiger als ein Anstrich?': 'Is cleaning really cheaper than painting?',
+    'Deutlich. Ein Anstrich braucht Gerüst, Vorbereitung, Material und mehrere Arbeitstage. Eine Reinigung braucht davon nur einen Bruchteil. Wie groß der Unterschied bei Ihnen ist, sagen wir Ihnen nach der Besichtigung.':
+        'Considerably. Painting needs scaffolding, preparation, materials and several working days. Cleaning needs only a fraction of that. We will tell you how big the difference is in your case after the inspection.',
+    'Hält die Reinigung auch bei starkem Befall?': 'Does cleaning work even with heavy growth?',
+    'In den allermeisten Fällen ja. Bei durchfeuchtetem oder abplatzendem Putz liegt das Problem allerdings tiefer — dann sagen wir Ihnen, dass eine Reinigung nicht reicht.':
+        'In the vast majority of cases, yes. With saturated or flaking render the problem lies deeper — then we tell you that cleaning is not enough.',
+    'Brauchen Sie ein Gerüst?': 'Do you need scaffolding?',
+    'Meistens nicht. Bis etwa zwölf Meter arbeiten wir mit Teleskoplanze vom Boden aus. Das spart Ihnen die Gerüstkosten.':
+        'Usually not. Up to around twelve metres we work with a telescopic lance from the ground. That saves you the scaffolding cost.',
+    'In der Regel ein bis zwei Tage, abhängig von Fläche und Verschmutzung.':
+        'As a rule one to two days, depending on area and level of soiling.',
+
+    # ---------------- Imprägnierung ----------------
+    'Imprägnierung &amp; Versiegelung': 'Sealing &amp; impregnation',
+    'Einmal gereinigt, fünf Jahre geschützt.': 'Cleaned once, protected for five years.',
+    'Warum eine Reinigung allein nicht reicht': 'Why cleaning alone is not enough',
+    'Eine frisch gereinigte Fläche ist offen wie am ersten Tag. Genau das ist der Moment, in dem sich neuer Schmutz am leichtesten festsetzt. Ohne Schutzschicht steht dieselbe Fläche nach zwei bis drei Jahren wieder da, wo sie vorher war.':
+        'A freshly cleaned surface is as open as on day one. That is exactly the moment when new dirt settles most easily. Without a protective layer, the same surface is back where it started after two to three years.',
+    'Die Imprägnierung schließt die Poren, ohne den Belag luftdicht zu versiegeln. Wasser perlt ab statt einzuziehen, Öl und Schmutz finden keinen Halt, und Moos braucht deutlich länger, bis es wieder Fuß fasst.':
+        'Sealing closes the pores without making the surface airtight. Water beads off instead of soaking in, oil and dirt find no hold, and moss takes far longer to gain a foothold again.',
+    'Nur auf saubere und trockene Flächen': 'Only on clean, dry surfaces',
+    'Imprägnierung auf ungereinigtem Untergrund schließt den Schmutz mit ein. Das ist Geldverbrennung. Wir tragen sie frühestens einen Tag nach der Reinigung auf, wenn die Fläche durchgetrocknet ist.':
+        'Sealing an uncleaned surface locks the dirt in. That is burning money. We apply it no earlier than a day after cleaning, once the surface has dried through.',
+    'Passendes Mittel je Belag': 'The right product for each surface',
+    'Beton, Naturstein, Ziegel und Putz brauchen unterschiedliche Produkte. Ein Universalmittel gibt es nicht — jedenfalls keines, das lange hält.':
+        'Concrete, natural stone, tile and render need different products. There is no universal one — at least none that lasts.',
+    'Sättigend auftragen, nicht sparsam': 'Apply to saturation, not sparingly',
+    'Die Schutzwirkung entsteht durch die Menge, die einzieht. Wer hier spart, spart an der Haltbarkeit.':
+        'The protective effect comes from the amount that soaks in. Saving here means saving on durability.',
+    'Fünf Jahre Garantie': 'Five-year guarantee',
+    'Wird dieselbe Fläche innerhalb von fünf Jahren wieder stark verschmutzt oder bewachsen, reinigen wir sie kostenlos erneut.':
+        'If the same surface becomes heavily soiled or overgrown again within five years, we clean it again free of charge.',
+    'Was wir imprägnieren': 'What we seal',
+    'Pflaster, Einfahrten und Hofflächen': 'Paving, driveways and yards',
+    'Terrassen aus Stein und Beton': 'Patios in stone and concrete',
+    'Naturstein mit atmungsaktivem Schutz': 'Natural stone with breathable protection',
+    'Dachflächen nach der Reinigung': 'Roof surfaces after cleaning',
+    'Fassaden und Sockelbereiche': 'Facades and plinth areas',
+    'Treppen und Eingänge': 'Steps and entrances',
+    'Verändert die Imprägnierung die Optik?': 'Does sealing change the appearance?',
+    'Es gibt matte Varianten, die das Aussehen praktisch nicht verändern, und solche mit leichtem Farbvertiefungseffekt, die den Stein satter wirken lassen. Sie entscheiden — an der Probefläche sehen Sie beides.':
+        'There are matt versions that barely change the look, and others with a slight colour-deepening effect that make the stone appear richer. You decide — you see both on the test area.',
+    'Wird die Fläche rutschig?': 'Does the surface become slippery?',
+    'Bei richtiger Auswahl nicht. Für Treppen und Gefällestrecken setzen wir rutschhemmende Produkte ein.':
+        'Not if the right product is chosen. For steps and sloping areas we use anti-slip products.',
+    'Was deckt die Fünf-Jahres-Garantie ab?': 'What does the five-year guarantee cover?',
+    'Kommt es auf derselben Fläche innerhalb der fünf Jahre zu erneuter starker Verschmutzung oder Bewuchs, reinigen wir kostenlos nach. Mechanische Schäden und bauliche Ursachen sind nicht abgedeckt.':
+        'If the same surface suffers heavy soiling or growth again within the five years, we clean it again free of charge. Mechanical damage and structural causes are not covered.',
+    'Kann man das später nachholen?': 'Can it be done later?',
+    'Ja, aber die Fläche muss dafür erneut gereinigt werden. Direkt im Anschluss an die Erstreinigung ist es deutlich günstiger.':
+        'Yes, but the surface has to be cleaned again first. Doing it straight after the initial clean is considerably cheaper.',
+
+    # ---------------- Gemeinsame Bausteine der Unterseiten ----------------
+    'Wie wir arbeiten': 'How we work',
+    'Die Probefläche kostet nichts und dauert eine halbe Stunde.':
+        'The test area costs nothing and takes half an hour.',
+    'ENTWURF für Julien Ebert — nicht veröffentlichen. Bilder, Preise und Bewertungen sind Platzhalter.':
+        'DRAFT for Julien Ebert — do not publish. Images, prices and reviews are placeholders.',
+    'Wir kommen vorbei, sehen uns die Fläche an und reinigen einen Quadratmeter als Probe. Sie sehen das Ergebnis an Ihrem eigenen Objekt — nicht auf einem Foto von jemand anderem.':
+        'We come round, look at the surface and clean one square metre as a test. You see the result on your own property — not in someone else’s photo.',
+}
