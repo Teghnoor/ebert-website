@@ -44,7 +44,7 @@ window.EBERT_EN_UNTER = {
   "Nach der Reinigung werden Dachrinnen und Fallrohre geräumt und auf Durchfluss geprüft. Das ist kein Zusatz, sondern Teil der Arbeit.": "After cleaning, gutters and downpipes are cleared and checked for flow. That is not an extra, it is part of the work.",
   "Nachbehandlung gegen Wiederbewuchs": "Aftercare against regrowth",
   "Auf Wunsch behandeln wir die gereinigte Fläche nach, damit Moos und Flechten nicht sofort zurückkommen. Auch hier gilt die Fünf-Jahres-Garantie.": "On request we treat the cleaned surface so that moss and lichen do not come straight back. The five-year guarantee applies here too.",
-  "Diese Dächer und Überdachungen reinigen wir": "Roofs and canopies we clean",
+  "Diese Dächer reinigen wir": "Roofs and canopies we clean",
   "Ton- und Betondachziegel": "Clay and concrete roof tiles",
   "Faserzement und Wellplatten": "Fibre cement and corrugated sheets",
   "Blech- und Trapezdächer": "Sheet metal and trapezoidal roofs",

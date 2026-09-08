@@ -202,15 +202,19 @@ else ok('leere Pflichtfelder werden abgefangen');
 /* ---------- 9. Chat ---------- */
 kopf('9. Chat-Hülle');
 const chat = await js(`(async () => {
-  document.getElementById('chat-knopf').click();
+  const k = document.getElementById('chat-knopf');
+  if (!k) return JSON.stringify({ fehlt: true });
+  k.click();
   await new Promise(r => setTimeout(r, 700));
   const auf = document.getElementById('chat').classList.contains('auf');
   const blasen = document.querySelectorAll('#chat-verlauf .blase').length;
   return JSON.stringify({ auf, blasen });
 })()`);
-const ch = JSON.parse(chat || '{}');
-if (ch.auf) ok('Chat öffnet sich'); else bad('Chat öffnet nicht');
-if (ch.blasen > 0) ok('Begrüßung erscheint'); else warn('keine Begrüßung im Chat');
+let ch = {};
+try { ch = JSON.parse(chat || '{}'); } catch { bad('Chat-Test lieferte kein Ergebnis'); }
+if (ch.fehlt) bad('Chat-Knopf fehlt auf dieser Seite');
+else if (ch.auf) ok('Chat öffnet sich'); else bad('Chat öffnet nicht');
+if (ch.fehlt) {} else if (ch.blasen > 0) ok('Begrüßung erscheint'); else warn('keine Begrüßung im Chat');
 
 /* ---------- 10. Breiten ---------- */
 kopf('10. Darstellung auf verschiedenen Breiten');

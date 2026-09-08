@@ -25,9 +25,18 @@ Letzter Lauf: **bestanden, 0 Fehler.**
 
 ## Aufbau
 
+Struktur nach dem Vorbild von `dachbeschichtung-profi.de` (Top-Leiste, Leistungen
+mit eigener Unterseite je Gewerk), Gestaltung im Apple-Look. **Durchgehender
+Aufruf ist die kostenlose Probefläche** — sie ist Hero, eigene Sektion mit vier
+Schritten, Kasten auf jeder Unterseite und Abschluss-Sektion.
+
 | Datei | Zweck |
 |---|---|
 | `index.html` | Startseite — Deutsch steht im HTML |
+| `gehwege-einfahrten.html` u. a. | 5 Leistungs-Unterseiten — **nicht von Hand ändern**, sie werden erzeugt |
+| `scripts/baue-unterseiten.py` | Inhalte und Vorlage der Unterseiten. Hier ändern, dann neu bauen |
+| `scripts/unterseiten_en.py` | englische Fassung der Unterseiten-Texte |
+| `i18n-unterseiten.js` | erzeugt — nicht von Hand ändern |
 | `site.css` | Design-System. Werte aus `apple.com` gemessen: Body 17/1.47, H2 56px/600, Statement bis 96px/600, Gewicht **immer 600**, Farbe `#1D1D1F` auf Weiß |
 | `site.js` | Reveal, Sticky-Bilder, Zähler, Vorher/Nachher, Preisrechner, Chat, Sprachumschalter |
 | `i18n.js` | **Englisch.** Schlüssel = der deutsche Text. Fehlt ein Eintrag, bleibt die Zeile deutsch — das Prüfskript listet sie auf |
@@ -37,9 +46,20 @@ Letzter Lauf: **bestanden, 0 Fehler.**
 **Kein Framework, kein CDN, keine Cookies.** Schriften liegen lokal in `fonts/` —
 die Seite macht keinen einzigen Request an einen fremden Host (vom Prüfskript verifiziert).
 
+## Unterseiten ändern
+
+```bash
+python3 scripts/baue-unterseiten.py     # nach jeder Änderung an den Inhalten
+```
+
+Inhalte stehen in `scripts/baue-unterseiten.py`, die englische Fassung in
+`scripts/unterseiten_en.py`. Beide erzeugen die HTML-Dateien bzw.
+`i18n-unterseiten.js` neu — direkte Änderungen an den erzeugten Dateien
+gehen beim nächsten Lauf verloren.
+
 ## Deutsch ändern
 
-Nur im HTML ändern. Für Englisch den passenden Eintrag in `i18n.js` nachziehen,
+Nur im HTML der Startseite ändern (bei Unterseiten im Generator). Für Englisch den passenden Eintrag in `i18n.js` nachziehen,
 sonst bleibt die Zeile deutsch (und fällt im Prüfskript auf).
 
 ## Preise ändern
