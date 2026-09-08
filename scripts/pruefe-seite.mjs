@@ -89,8 +89,11 @@ else konsole.forEach(k => bad(k));
 
 /* ---------- 2. Fremde Hosts ---------- */
 kopf('2. Externe Requests (DSGVO)');
-const fremd = anfragen.filter(u => !u.startsWith('http://localhost') && !u.startsWith('http://127.0.0.1') && !u.startsWith('data:') && !u.startsWith('about:'));
-if (fremd.length === 0) ok('kein einziger Request an einen fremden Host');
+const eigenerHost = new URL(URL_).origin;
+const fremd = anfragen.filter(u =>
+  !u.startsWith(eigenerHost) && !u.startsWith('data:') &&
+  !u.startsWith('about:') && !u.startsWith('blob:'));
+if (fremd.length === 0) ok('kein einziger Request an einen fremden Host (eigener: ' + eigenerHost + ')');
 else fremd.forEach(u => bad('fremder Host: ' + u));
 
 /* ---------- 4. Reveal: nichts darf unsichtbar hängen ---------- */
