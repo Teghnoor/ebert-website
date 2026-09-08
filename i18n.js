@@ -75,6 +75,23 @@ window.EBERT_EN = {
     'We will call you back. We use your details only for that. More in the',
   'Anrufen': 'Call',
   'Ablauf': 'How it works',
+  'Design-Entwurf von Brandscale · kein Angebot der Firma Ebert':
+    'Design draft by Brandscale · not an offer by the Ebert company',
+  'Design-Entwurf von Brandscale': 'Design draft by Brandscale',
+
+  /* Terminbuchung */
+  'Lieber gleich einen Termin aussuchen?': 'Prefer to pick a time straight away?',
+  'Sie können sich einen freien Termin für die Probefläche direkt selbst aussuchen. Oder Sie rufen an — beides ist uns recht.':
+    'You can pick a free slot for the test area yourself. Or just call us — either is fine with us.',
+  'Freie Termine ansehen': 'See available times',
+  'Wir zeigen Ihnen den Kalender erst, wenn Sie darauf klicken. Vorher wird nichts an Google übertragen.':
+    'We only show you the calendar once you click. Nothing is sent to Google before that.',
+  'Freie Termine anzeigen': 'Show available times',
+  'Mit dem Klick laden Sie den Terminkalender von Google. Dabei werden Daten an Google übertragen. Mehr dazu in der':
+    'Clicking loads the booking calendar from Google. Data is transferred to Google in the process. More in the',
+  'Oder ganz einfach anrufen:': 'Or simply give us a call:',
+  'Platzhalter — Buchungsseite ist noch nicht hinterlegt (termin.js)':
+    'Placeholder — no booking page has been set yet (termin.js)',
 
   /* Nachtraege V3 */
   'Mehr zu Gehwegen und Einfahrten': 'More on paths and driveways',

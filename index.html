@@ -50,6 +50,7 @@
         </div>
       </div>
       <a href="#probeflaeche">Ablauf</a>
+      <a href="#termin">Termin</a>
       <a href="#stimmen">Referenzen</a>
       <a href="#anfrage">Kontakt</a>
     </nav>
@@ -443,6 +444,44 @@
     </div>
   </section>
 
+  <!-- 13b — Termin online buchen -->
+  <section class="abschnitt" id="termin">
+    <div class="huelle">
+      <div class="mitte" style="margin-bottom:36px">
+        <p class="eyebrow zeig">Termin</p>
+        <h2 class="gross-h2 zeig">Lieber gleich einen Termin aussuchen?</h2>
+        <p class="lead zeig" style="margin-top:16px">
+          Sie können sich einen freien Termin für die Probefläche direkt selbst
+          aussuchen. Oder Sie rufen an — beides ist uns recht.
+        </p>
+      </div>
+
+      <div class="termin-kasten zeig" id="termin-kasten">
+        <div class="termin-vorschau" id="termin-vorschau">
+          <div class="termin-symbol" aria-hidden="true">📅</div>
+          <h3>Freie Termine ansehen</h3>
+          <p>
+            Wir zeigen Ihnen den Kalender erst, wenn Sie darauf klicken.
+            Vorher wird nichts an Google übertragen.
+          </p>
+          <button class="knopf knopf-gross" type="button" id="termin-laden">
+            Freie Termine anzeigen
+          </button>
+          <p class="klein" style="margin-top:16px;max-width:52ch;margin-left:auto;margin-right:auto">
+            Mit dem Klick laden Sie den Terminkalender von Google.
+            Dabei werden Daten an Google übertragen.
+            Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="mitte" style="margin-top:34px">
+        <p class="lead zeig">Oder ganz einfach anrufen:</p>
+        <p class="nummer-gross zeig"><a href="tel:+4916083597840">0160 83 59 784</a></p>
+      </div>
+    </div>
+  </section>
+
   <!-- 14 — Anfrage -->
   <section class="abschnitt grau" id="anfrage">
     <div class="huelle anfrage-raster">
@@ -566,7 +605,7 @@
     </div>
     <div class="fuss-unten">
       <span>Copyright © <span id="jahr">2026</span> Ebert Stein- und Fassadenreinigung. Alle Rechte vorbehalten.</span>
-      <span>Gießen, Deutschland</span>
+      <span>Design-Entwurf von Brandscale · kein Angebot der Firma Ebert</span>
     </div>
   </div>
 </footer>
@@ -596,6 +635,7 @@
   </form>
 </div>
 
+<script src="termin.js"></script>
 <script src="i18n.js"></script>
 <script src="i18n-unterseiten.js"></script>
 <script src="site.js"></script>

@@ -148,6 +148,7 @@ const rest = await js(`(async () => {
   while ((n = w.nextNode())) {
     const p = n.parentNode;
     if (!p || ['SCRIPT','STYLE'].includes(p.nodeName)) continue;
+    if (p.closest && p.closest('[data-nicht-uebersetzen]')) continue;
     const t = n.nodeValue.replace(/\\s+/g,' ').trim();
     if (t.length > 2 && muster.test(t)) raus.push(t.slice(0,60));
   }
@@ -313,6 +314,28 @@ else if (!falsch.length) ok('alle Zahlen erreichen ihren Endwert (' + A.zahlen.m
 else falsch.forEach(z => bad('Zahl bleibt bei ' + z.ist + ' statt ' + z.soll));
 if (!A.haengt?.length) ok('kein sichtbares Element bleibt in der Bewegung hängen');
 else A.haengt.slice(0, 5).forEach(t => bad('bleibt verschoben: ' + t));
+
+/* ---------- 12c. Terminbuchung lädt erst nach Klick ---------- */
+kopf('12c. Terminbuchung (Zwei-Klick)');
+const termin = await js(`(() => {
+  const kasten = document.getElementById('termin-kasten');
+  if (!kasten) return JSON.stringify({ keine: true });
+  return JSON.stringify({
+    rahmenVorKlick: kasten.querySelectorAll('iframe').length,
+    knopf: !!document.getElementById('termin-laden'),
+    adresse: (window.EBERT_TERMIN || {}).buchungsseite || ''
+  });
+})()`);
+const TB = JSON.parse(termin || '{}');
+if (TB.keine) ok('keine Terminbuchung auf dieser Seite');
+else {
+  if (TB.rahmenVorKlick === 0) ok('kein Kalender-iFrame vor dem Klick — Seite bleibt bannerfrei');
+  else bad('iFrame lädt schon beim Seitenaufruf — dann wird ein Cookie-Banner Pflicht');
+  if (TB.knopf) ok('Schaltfläche zum Laden vorhanden');
+  else bad('Schaltfläche fehlt');
+  if (!TB.adresse) warn('Buchungsseite noch nicht hinterlegt (termin.js) — Platzhalter aktiv');
+  else ok('Buchungsseite hinterlegt');
+}
 
 /* ---------- 13. Keine Preise ---------- */
 kopf('13. Keine Preisangaben');

@@ -264,6 +264,56 @@
     });
   }
 
+  /* ================= Terminbuchung (Zwei-Klick) =================
+     Der Google-Kalender wird ERST NACH einem Klick geladen. Solange
+     niemand klickt, geht kein Request an Google — deshalb braucht die
+     Seite kein Einwilligungsbanner. Adresse steht in termin.js. */
+  var terminKnopf = document.getElementById('termin-laden');
+  var terminKasten = document.getElementById('termin-kasten');
+  var terminVorschau = document.getElementById('termin-vorschau');
+  var T = window.EBERT_TERMIN || {};
+
+  if (terminKnopf && terminKasten && terminVorschau) {
+    if (!T.buchungsseite) {
+      // Noch keine Buchungsseite hinterlegt — ehrlich sagen statt so tun
+      terminKnopf.disabled = true;
+      terminKnopf.style.opacity = '.5';
+      terminKnopf.style.cursor = 'not-allowed';
+      var hinweis = document.createElement('p');
+      hinweis.className = 'platzhalter';
+      hinweis.style.marginTop = '18px';
+      hinweis.setAttribute('data-nicht-uebersetzen', '');
+      hinweis.textContent = sprache === 'en'
+        ? 'Placeholder — no booking page has been set yet (termin.js)'
+        : 'Platzhalter — Buchungsseite ist noch nicht hinterlegt (termin.js)';
+      document.addEventListener('ebert:lang', function (e) {
+        hinweis.textContent = e.detail === 'en'
+          ? 'Placeholder — no booking page has been set yet (termin.js)'
+          : 'Platzhalter — Buchungsseite ist noch nicht hinterlegt (termin.js)';
+      });
+      terminVorschau.appendChild(hinweis);
+    } else {
+      terminKnopf.addEventListener('click', function () {
+        var rahmen = document.createElement('iframe');
+        rahmen.src = T.buchungsseite;
+        rahmen.title = 'Terminbuchung bei Ebert Stein- und Fassadenreinigung';
+        rahmen.loading = 'lazy';
+        rahmen.setAttribute('referrerpolicy', 'no-referrer');
+
+        var fuss = document.createElement('p');
+        fuss.className = 'termin-hinweis';
+        fuss.textContent = sprache === 'en'
+          ? 'Booking calendar provided by Google. It loads only after your click.'
+          : 'Terminkalender von Google. Er wird erst nach Ihrem Klick geladen.';
+
+        terminVorschau.remove();
+        terminKasten.appendChild(rahmen);
+        terminKasten.appendChild(fuss);
+        rahmen.focus();
+      });
+    }
+  }
+
   /* ================= Chat (nur Hülle) =================
      TODO: An n8n-Webhook anbinden. Dann `frage()` gegen den Endpunkt
      sprechen lassen statt die Platzhalter-Antwort auszugeben. */

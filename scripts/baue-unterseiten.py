@@ -304,6 +304,7 @@ def seite_html(s):
 {unter}        </div>
       </div>
       <a href="index.html#probeflaeche">Ablauf</a>
+      <a href="index.html#termin">Termin</a>
       <a href="index.html#stimmen">Referenzen</a>
       <a href="index.html#anfrage">Kontakt</a>
     </nav>
@@ -460,7 +461,7 @@ def seite_html(s):
     </div>
     <div class="fuss-unten">
       <span>Copyright © <span id="jahr">2026</span> Ebert Stein- und Fassadenreinigung. Alle Rechte vorbehalten.</span>
-      <span>Gießen, Deutschland</span>
+      <span>Design-Entwurf von Brandscale · kein Angebot der Firma Ebert</span>
     </div>
   </div>
 </footer>
@@ -490,7 +491,7 @@ def seite_html(s):
   </form>
 </div>
 
-<script src="i18n.js"></script>\n<script src="i18n-unterseiten.js"></script>
+<script src="termin.js"></script>\n<script src="i18n.js"></script>\n<script src="i18n-unterseiten.js"></script>
 <script src="site.js"></script>
 </body>
 </html>
