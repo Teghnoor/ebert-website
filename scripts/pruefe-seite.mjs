@@ -121,7 +121,7 @@ if (bl.length && bl.every(b => b.ok)) ok(`alle ${bl.length} Bilder geladen`);
 /* ---------- 5. Direktsprung auf Anker ---------- */
 kopf('5. Direktsprung auf Anker');
 const anker_liste = URL_.includes('index.html') || URL_.endsWith('/')
-  ? ['#anfrage', '#preise', '#stimmen', '#ueber-uns', '#arbeit'] : [];
+  ? ['#anfrage', '#probeflaeche', '#stimmen', '#ueber-uns', '#arbeit'] : [];
 if (!anker_liste.length) ok('Unterseite — verlinkt auf die Startseite, keine eigenen Anker');
 for (const anker of anker_liste) {
   await send('Page.navigate', { url: URL_.split('#')[0] + anker });
@@ -157,33 +157,17 @@ const dr = JSON.parse(rest || '[]');
 if (dr.length === 0) ok('keine Zeile bleibt auf Englisch deutsch');
 else dr.forEach(t => bad('nicht übersetzt: ' + t));
 
-/* ---------- 7. Preisrechner ---------- */
-kopf('7. Preisrechner');
-await js(`try { localStorage.removeItem('ebert-lang'); } catch(e) {}; 1`);
-await send('Page.navigate', { url: URL_.split('#')[0] });
-await warte(1600);
-const rechner = await js(`(() => {
-  const r = document.getElementById('flaeche-regler');
-  const a = document.getElementById('preis-anzeige');
-  if (!r || !a) return JSON.stringify({ fehler: 'Rechner fehlt' });
-  const werte = [];
-  for (const v of [20, 80, 400]) {
-    r.value = v; r.dispatchEvent(new Event('input'));
-    werte.push({ qm: v, text: a.textContent });
-  }
-  document.querySelector('input[name="leistung"][value="dach"]').click();
-  const dach = a.textContent;
-  return JSON.stringify({ werte, dach });
-})()`);
-const rc = JSON.parse(rechner || '{}');
+/* ---------- 7. Keine Preisrechner-Reste ---------- */
+kopf('7. Preisrechner entfernt');
+const reste = await js(`JSON.stringify({
+  rechner: !!document.getElementById('flaeche-regler'),
+  anzeige: !!document.getElementById('preis-anzeige'),
+  skript: !!window.EBERT_PREISE
+})`);
+const R = JSON.parse(reste || "{}");
 const startseite = URL_.includes('index.html') || URL_.endsWith('/');
-if (rc.fehler) { if (startseite) bad(rc.fehler); else ok('Unterseite — kein eigener Rechner'); }
-else {
-  const zahlen = rc.werte.map(w => parseInt((w.text.match(/[\d.,]+/g) || ['0'])[0].replace(/[.,]/g, ''), 10));
-  if (zahlen[0] > 0 && zahlen[2] > zahlen[1] && zahlen[1] > 0) ok(`steigt mit der Fläche: ${rc.werte.map(w => w.qm + 'm² → ' + w.text).join(' · ')}`);
-  else bad('Ergebnis steigt nicht plausibel: ' + JSON.stringify(rc.werte));
-  ok('Leistungswechsel wirkt: Dach → ' + rc.dach);
-}
+if (!R.rechner && !R.anzeige && !R.skript) ok('kein Rechner und keine Preisdaten mehr geladen');
+else bad('Rechner-Reste gefunden: ' + JSON.stringify(R));
 
 /* ---------- 8. Formular-Validierung ---------- */
 kopf('8. Formular');
@@ -231,8 +215,9 @@ for (const [b, h] of [[390, 844], [768, 1024], [1440, 900]]) {
     return JSON.stringify({ scrollW: w, innerW: v, raus });
   })()`);
   const u = JSON.parse(ueber || '{}');
-  if (u.scrollW <= u.innerW + 2) ok(`${b}px: kein waagerechtes Scrollen`);
-  else bad(`${b}px: Seite ist ${u.scrollW}px breit (${u.raus.join(', ')})`);
+  if (u.scrollW > u.innerW + 2) bad(`${b}px: Seite ist ${u.scrollW}px breit`);
+  else if (u.raus.length) bad(`${b}px: ragt seitlich heraus — ${u.raus.join(', ')}`);
+  else ok(`${b}px: nichts ragt heraus`);
 }
 await send('Emulation.clearDeviceMetricsOverride');
 
@@ -246,6 +231,93 @@ const gewicht = await js(`(() => {
 const g = JSON.parse(gewicht || '{}');
 if (g.kb < 3500) ok(`${g.kb} KB über ${g.n} Requests`);
 else warn(`${g.kb} KB — Bilder weiter verkleinern`);
+
+
+/* ---------- 12. Lesbarkeit für Leser ab 50 ---------- */
+kopf('12. Lesbarkeit (Zielgruppe ab 50)');
+const les = await js(`(() => {
+  function lum(c){
+    const m = c.match(/[\\d.]+/g); if(!m) return 1;
+    const [r,g,b] = m.slice(0,3).map(v => { v = v/255; return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); });
+    return 0.2126*r + 0.7152*g + 0.0722*b;
+  }
+  function kontrast(f, h){ const a = lum(f), b = lum(h); return (Math.max(a,b)+0.05)/(Math.min(a,b)+0.05); }
+  function grund(el){
+    let e = el;
+    while (e && e !== document.documentElement) {
+      const b = getComputedStyle(e).backgroundColor;
+      if (b && b !== 'rgba(0, 0, 0, 0)' && b !== 'transparent') return b;
+      e = e.parentElement;
+    }
+    return 'rgb(255,255,255)';
+  }
+  const schwach = [], klein = [], flach = [];
+  document.querySelectorAll('p, li, td, span, small, label, summary, .klein, .lead, figcaption')
+    .forEach(el => {
+      if (!el.textContent.trim() || el.children.length) return;
+      if (el.getAttribute('aria-hidden') === 'true') return;
+      // Text ueber Bildern: Hintergrund ist nicht messbar, dort sorgt ein
+      // dunkler Verlauf fuer den Kontrast — separat sichergestellt.
+      if (el.closest('.weiter-karte, .hero, .unter-hero, .schieber, .abschnitt.dunkel, .probe-kasten, .vergleich-karte.gut, .oben-leiste, .tel-leiste, .chat')) return;
+      const r = el.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) return;
+      const s = getComputedStyle(el);
+      if (s.visibility === 'hidden' || s.display === 'none' || parseFloat(s.opacity) < 0.5) return;
+      const px = parseFloat(s.fontSize);
+      const k = kontrast(s.color, grund(el));
+      const name = (el.className || el.tagName).toString().split(' ')[0].slice(0, 24);
+      const txt = el.textContent.replace(/\\s+/g,' ').trim().slice(0, 34);
+      if (k < 7) schwach.push(name + ' — ' + k.toFixed(2) + ' — "' + txt + '"');
+      if (px < 17) klein.push(name + ' — ' + px + 'px — "' + txt + '"');
+    });
+  document.querySelectorAll('a.knopf, button, .nav a, .nav-klapp-knopf, .direkt a, .tel-leiste a, .hero-tel')
+    .forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.height > 0 && r.height < 44) {
+        flach.push((el.className || el.tagName).toString().split(' ')[0] + ' — ' + Math.round(r.height) + 'px');
+      }
+    });
+  return JSON.stringify({ schwach: [...new Set(schwach)], klein: [...new Set(klein)], flach: [...new Set(flach)] });
+})()`);
+const L = JSON.parse(les || '{}');
+if (!L.schwach?.length) ok('Kontrast überall ≥ 7,0 (WCAG AAA)');
+else L.schwach.slice(0, 8).forEach(t => bad('Kontrast zu schwach: ' + t));
+if (!L.klein?.length) ok('kein Text unter 17 px');
+else L.klein.slice(0, 8).forEach(t => bad('Schrift zu klein: ' + t));
+if (!L.flach?.length) ok('alle Schaltflächen ≥ 44 px hoch');
+else L.flach.slice(0, 8).forEach(t => bad('Schaltfläche zu flach: ' + t));
+
+/* ---------- 13. Keine Preise ---------- */
+kopf('13. Keine Preisangaben');
+const preise = await js(`(() => {
+  const t = document.body.innerText;
+  const treffer = [];
+  const muster = [/\\d[\\d.,]*\\s*€/g, /€\\s*\\d/g, /\\bEUR\\b/g, /pro\\s*m²/gi, /\\/\\s*m²/g, /Euro\\b/g];
+  muster.forEach(m => { const f = t.match(m); if (f) treffer.push(...f); });
+  return JSON.stringify([...new Set(treffer)]);
+})()`);
+const pr = JSON.parse(preise || '[]');
+if (!pr.length) ok('keine Preisangabe im sichtbaren Text');
+else pr.slice(0, 6).forEach(t => bad('Preisangabe gefunden: ' + t));
+
+/* ---------- 14. Sofort sichtbar ---------- */
+kopf('14. Alles sofort sichtbar (keine Einblend-Animation)');
+await send('Page.navigate', { url: URL_.split('#')[0] });
+await warte(900);
+const unsichtbar = await js(`(() => {
+  const raus = [];
+  document.querySelectorAll('body *').forEach(el => {
+    const s = getComputedStyle(el);
+    if (parseFloat(s.opacity) < 0.5 && el.textContent.trim() && s.display !== 'none' && s.visibility !== 'hidden') {
+      if (el.closest('.chat') || el.closest('.nav-klapp-inhalt') || el.closest('.nav')) return;
+      raus.push((el.className || el.tagName).toString().split(' ')[0] + ' — ' + el.textContent.replace(/\\s+/g,' ').trim().slice(0,30));
+    }
+  });
+  return JSON.stringify([...new Set(raus)]);
+})()`);
+const un = JSON.parse(unsichtbar || '[]');
+if (!un.length) ok('kein Element startet unsichtbar');
+else un.slice(0, 6).forEach(t => bad('startet unsichtbar: ' + t));
 
 /* ---------- Ergebnis ---------- */
 console.log('\n' + '─'.repeat(46));

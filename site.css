@@ -8,22 +8,31 @@
   --grau: #f5f5f7;
   --schwarz: #000000;
   --tinte: #1d1d1f;
-  --leise: #6e6e73;
-  --leise-dunkel: #a1a1a6;
-  --linie: #d2d2d7;
+  --leise: #3a3d42;          /* Kontrast 8,9 auf Weiss (WCAG AAA) */
+  --leise-dunkel: #c7c9ce;   /* Kontrast 9,8 auf Schwarz */
+  --linie: #c4c7cc;
   --linie-dunkel: #2c2c2e;
   --blau: #0071e3;
+  --blau-text: #00458c;      /* fuer feine Texte: Kontrast 8,6 auf Weiss */
   --blau-hell: #2b8fff;
   --gruen: #34c759;
-  --warn: #b25000;
+  --warn: #8a3d00;           /* Kontrast 7,3 auf #fff4e5 */
   --warn-flaeche: #fff4e5;
   --breite: 1024px;
   --breit: 1280px;
-  --nav: 48px;
+  --nav: 64px;
   --kurve: cubic-bezier(.2, .7, .2, 1);
 }
 
 * { box-sizing: border-box; }
+
+/* Tastaturbedienung sichtbar machen */
+a:focus-visible, button:focus-visible, input:focus-visible,
+textarea:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--blau);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
 html {
   scroll-behavior: smooth;
@@ -36,15 +45,17 @@ body {
   background: var(--weiss);
   color: var(--tinte);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 17px;
-  line-height: 1.47059;
+  font-size: 19px;
+  line-height: 1.7;
   font-weight: 400;
-  letter-spacing: -.022em;
+  letter-spacing: -.01em;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 img { max-width: 100%; display: block; }
+p { max-width: 62ch; }
+.mitte p, .mitte .lead { margin-left: auto; margin-right: auto; }
 a { color: var(--blau); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
@@ -60,13 +71,15 @@ h1, h2, h3, h4 {
 
 /* ---------- Typo-Stufen ---------- */
 .statement {
-  font-size: clamp(2.5rem, 8.5vw, 6rem);
-  line-height: 1.04;
+  font-size: clamp(2.3rem, 6.5vw, 4.6rem);
+  line-height: 1.08;
   letter-spacing: -.015em;
   font-weight: 600;
+  text-wrap: balance;
 }
 .gross-h2 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-wrap: balance;
+  font-size: clamp(1.9rem, 4.2vw, 3.1rem);
   line-height: 1.07;
   letter-spacing: -.005em;
   font-weight: 600;
@@ -79,21 +92,22 @@ h1, h2, h3, h4 {
   margin: 0 0 8px;
 }
 .lead {
-  font-size: clamp(1.05rem, 2vw, 1.45rem);
-  line-height: 1.42;
-  letter-spacing: -.012em;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.6;
+  letter-spacing: -.008em;
   color: var(--leise);
   font-weight: 400;
+  max-width: 62ch;
 }
-.klein { font-size: 14px; line-height: 1.43; color: var(--leise); letter-spacing: -.016em; }
+.klein { font-size: 17px; line-height: 1.65; color: var(--leise); letter-spacing: -.008em; }
 
 /* ---------- Knöpfe ---------- */
 .knopf {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   background: var(--blau); color: #fff;
   font-size: 17px; font-weight: 400; letter-spacing: -.022em;
-  padding: 12px 23px; border-radius: 980px; border: 0; cursor: pointer;
-  font-family: inherit; text-decoration: none;
+  padding: 15px 28px; border-radius: 980px; border: 0; cursor: pointer;
+  font-family: inherit; text-decoration: none; min-height: 52px;
   transition: background .2s var(--kurve), transform .18s var(--kurve);
 }
 .knopf:hover { background: var(--blau-hell); text-decoration: none; }
@@ -105,7 +119,7 @@ h1, h2, h3, h4 {
 .knopf-rand:hover { background: rgba(0,113,227,.06); }
 .knopf-hell { background: #fff; color: var(--tinte); }
 .knopf-hell:hover { background: #eee; }
-.knopf-gross { font-size: 19px; padding: 15px 30px; }
+.knopf-gross { font-size: 21px; padding: 18px 34px; min-height: 60px; font-weight: 500; }
 
 .textlink {
   color: var(--blau); font-size: 17px; display: inline-flex; align-items: center; gap: 5px;
@@ -138,39 +152,36 @@ h1, h2, h3, h4 {
 }
 .logo { display: flex; align-items: center; gap: 9px; flex-shrink: 0; color: var(--tinte); }
 .logo:hover { text-decoration: none; }
-.logo img { height: 24px; width: auto; }
-.logo b { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+.logo img { height: 34px; width: auto; }
+.logo b { font-size: 19px; font-weight: 600; letter-spacing: -.01em; }
 
-.nav { display: flex; gap: 30px; margin: 0 auto; }
-.nav a { font-size: 12px; color: var(--tinte); opacity: .85; letter-spacing: -.01em; }
+.nav { display: flex; gap: 26px; margin: 0 auto; }
+.nav a { font-size: 16px; color: var(--tinte); letter-spacing: -.005em; display: flex; align-items: center; min-height: 48px; }
 .nav a:hover { opacity: 1; text-decoration: none; }
 
 .kopf-rechts { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
 .sprache {
   display: flex; border: 1px solid var(--linie); border-radius: 980px; overflow: hidden;
+  min-height: 46px; align-items: stretch;
 }
 .sprache button {
   border: 0; background: transparent; cursor: pointer;
   font-family: inherit; font-size: 11px; font-weight: 500; letter-spacing: .02em;
-  padding: 4px 10px; color: var(--leise); transition: all .2s var(--kurve);
+  padding: 11px 16px; color: var(--leise); transition: all .2s var(--kurve);
+  min-height: 44px; font-size: 15px;
 }
 .sprache button.an { background: var(--tinte); color: #fff; }
 .kopf-tel { font-size: 12px; color: var(--tinte); }
 
-.brenner { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
+.brenner { display: none; background: none; border: 0; cursor: pointer; padding: 12px; min-width: 48px; min-height: 48px; }
 .brenner span { display: block; width: 17px; height: 1.5px; background: var(--tinte); margin: 4px 0; transition: transform .25s var(--kurve), opacity .2s; }
 .brenner.auf span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
 .brenner.auf span:nth-child(2) { opacity: 0; }
 .brenner.auf span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
 /* ---------- Reveal ---------- */
-.zeig {
-  opacity: 0;
-  transform: translateY(44px);
-  transition: opacity .9s var(--kurve), transform .9s var(--kurve);
-  will-change: opacity, transform;
-}
-.zeig.da { opacity: 1; transform: none; }
+.zeig { opacity: 1; transform: none; }   /* V4: nichts blendet ein — alles steht sofort da */
+.wort { display: inline; opacity: 1; transform: none; }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -181,10 +192,7 @@ h1, h2, h3, h4 {
 .hero-bild { position: absolute; inset: 0; }
 .hero-bild img {
   width: 100%; height: 100%; object-fit: cover;
-  transform: scale(1.14);
-  animation: langsam-ran 2.4s var(--kurve) forwards;
 }
-@keyframes langsam-ran { to { transform: scale(1); } }
 .hero-bild::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.28) 42%, rgba(0,0,0,.82) 100%);
@@ -194,14 +202,12 @@ h1, h2, h3, h4 {
 .hero .lead { color: rgba(255,255,255,.86); margin: 20px auto 0; max-width: 34ch; }
 .hero-knoepfe { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 34px; }
 .hero-ort {
-  font-size: 15px; color: rgba(255,255,255,.72); letter-spacing: .01em; margin: 0 0 14px;
+  font-size: 18px; color: #e0e3e6; letter-spacing: .01em; margin: 0 0 16px;
 }
 .hero-pfeil {
   position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
   z-index: 2; color: rgba(255,255,255,.7); font-size: 24px;
-  animation: wipp 2.4s ease-in-out infinite;
 }
-@keyframes wipp { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
 
 /* ---------- Abschnitte ---------- */
 .abschnitt { padding: clamp(80px, 12vw, 150px) 0; }
@@ -212,12 +218,6 @@ h1, h2, h3, h4 {
 .mitte .lead { margin-left: auto; margin-right: auto; max-width: 46ch; }
 
 /* Statement mit Wort-Einblendung */
-.wort {
-  display: inline-block;
-  opacity: 0; transform: translateY(28px);
-  transition: opacity .7s var(--kurve), transform .7s var(--kurve);
-}
-.wort.da { opacity: 1; transform: none; }
 .hell-wort { color: var(--leise); }
 
 /* ---------- Sticky-Flächen ---------- */
@@ -386,7 +386,7 @@ textarea { min-height: 110px; resize: vertical; }
 /* ---------- Platzhalter-Markierung ---------- */
 .platzhalter {
   background: var(--warn-flaeche); color: var(--warn);
-  border-radius: 8px; padding: 2px 7px; font-size: 13px; font-weight: 500;
+  border-radius: 8px; padding: 3px 9px; font-size: 17px; font-weight: 600;
   display: inline-block;
 }
 .platzhalter-kasten {
@@ -434,8 +434,8 @@ textarea { min-height: 110px; resize: vertical; }
 }
 .chat-punkt { width: 8px; height: 8px; border-radius: 50%; background: var(--gruen); flex-shrink: 0; }
 .chat-kopf b { font-size: 15px; font-weight: 600; }
-.chat-kopf small { display: block; font-size: 12px; color: var(--leise); }
-.chat-zu { margin-left: auto; background: none; border: 0; font-size: 19px; color: var(--leise); cursor: pointer; line-height: 1; padding: 4px; }
+.chat-kopf small { display: block; font-size: 17px; color: var(--leise); }
+.chat-zu { margin-left: auto; background: none; border: 0; font-size: 20px; color: var(--tinte); cursor: pointer; line-height: 1; padding: 12px; min-width: 48px; min-height: 48px; }
 .chat-verlauf { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
 .blase {
   max-width: 82%; padding: 11px 15px; border-radius: 18px; font-size: 15px; line-height: 1.4;
@@ -459,8 +459,8 @@ textarea { min-height: 110px; resize: vertical; }
 .chat-eingabe { display: flex; gap: 9px; padding: 14px 16px; border-top: 1px solid var(--linie); }
 .chat-eingabe input { flex: 1; border-radius: 980px; padding: 11px 16px; font-size: 15px; }
 .chat-senden {
-  width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--blau); color: #fff;
-  cursor: pointer; font-size: 16px; flex-shrink: 0;
+  width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--blau); color: #fff;
+  cursor: pointer; font-size: 19px; flex-shrink: 0;
 }
 
 /* ---------- Fuß ---------- */
@@ -530,23 +530,23 @@ textarea { min-height: 110px; resize: vertical; }
 
 /* ---------- Top-Leiste ---------- */
 .oben-leiste {
-  background: var(--tinte); color: rgba(255,255,255,.9);
-  font-size: 13px; position: relative; z-index: 85;
+  background: var(--tinte); color: #fff;
+  font-size: 17px; position: relative; z-index: 85;
 }
-.oben-inhalt { display: flex; align-items: center; gap: 26px; height: 38px; }
-.oben-leiste a { color: rgba(255,255,255,.9); }
+.oben-inhalt { display: flex; align-items: center; gap: 28px; min-height: 48px; }
+.oben-leiste a { color: #fff; font-weight: 500; }
 .oben-leiste a:hover { color: #fff; text-decoration: none; }
-.oben-rechts { margin-left: auto; color: rgba(255,255,255,.6); }
+.oben-rechts { margin-left: auto; color: #e8eaec; font-size: 17px; }
 
 /* ---------- Klappmenü Leistungen ---------- */
 .nav-klapp { position: relative; }
 .nav-klapp-knopf {
   background: none; border: 0; cursor: pointer; font-family: inherit;
-  font-size: 12px; color: var(--tinte); opacity: .85; letter-spacing: -.01em;
-  padding: 0; display: inline-flex; align-items: center; gap: 4px;
+  font-size: 16px; color: var(--tinte); letter-spacing: -.005em;
+  padding: 0; display: inline-flex; align-items: center; gap: 6px; min-height: 48px;
 }
 .nav-klapp-knopf:hover, .nav-klapp-knopf.offen { opacity: 1; }
-.nav-klapp-knopf span { font-size: 9px; transition: transform .2s var(--kurve); display: inline-block; }
+.nav-klapp-knopf span { font-size: 15px; transition: transform .2s var(--kurve); display: inline-block; }
 .nav-klapp-knopf.offen span { transform: rotate(180deg); }
 .nav-klapp-inhalt {
   position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(-8px);
@@ -559,12 +559,12 @@ textarea { min-height: 110px; resize: vertical; }
 }
 .nav-klapp-inhalt.auf { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
 .nav-klapp-inhalt a {
-  display: block; padding: 9px 13px; border-radius: 9px;
-  font-size: 14px; color: var(--tinte); opacity: 1;
+  display: flex; align-items: center; min-height: 50px; padding: 10px 16px; border-radius: 10px;
+  font-size: 17px; color: var(--tinte);
 }
 .nav-klapp-inhalt a:hover { background: var(--grau); text-decoration: none; }
 .nav-klapp-inhalt a.an { color: var(--blau); font-weight: 500; }
-.knopf-klein { font-size: 13px; padding: 8px 16px; }
+.knopf-klein { font-size: 16px; padding: 11px 20px; min-height: 46px; }
 
 /* ---------- Unterseiten-Hero ---------- */
 .unter-hero {
@@ -605,7 +605,7 @@ textarea { min-height: 110px; resize: vertical; }
 .probe-kasten {
   background: var(--tinte); color: #fff; border-radius: 20px; padding: 38px 36px;
 }
-.probe-kasten .eyebrow { color: var(--leise-dunkel); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+.probe-kasten .eyebrow { color: var(--leise-dunkel); font-size: 17px; letter-spacing: .08em; text-transform: uppercase; }
 .probe-kasten h3 { font-size: 1.6rem; margin: 8px 0 14px; color: #fff; }
 .probe-kasten p { color: var(--leise-dunkel); font-size: 16px; }
 .probe-kasten .punkte { margin: 20px 0 26px; }
@@ -720,4 +720,153 @@ textarea { min-height: 110px; resize: vertical; }
   .kopf-rechts .knopf-klein { display: none; }
   .verfahren-block { flex-direction: column; gap: 10px; }
   .unter-hero-text { padding: 60px 24px 44px; }
+}
+
+/* ==========================================================================
+   V4 — Zielgruppe ab 50: ruhiges Layout, Telefon als Hauptweg
+   ========================================================================== */
+
+/* ---------- Leistungen: ruhige Blöcke statt Sticky-Wechsel ---------- */
+.sticky-raster { display: block; }
+.sticky-bild { display: none; }          /* mitlaufendes Bild entfällt */
+
+.sticky-texte { display: grid; gap: 28px; }
+
+.flaeche-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 0;
+  padding: 0;
+  background: #fff;
+  border: 1px solid var(--linie);
+  border-radius: 20px;
+  overflow: hidden;
+  align-items: stretch;
+}
+.flaeche-block > .flaeche-inhalt { padding: 44px 42px; }
+.flaeche-block:nth-child(even) .flaeche-bild { order: -1; }
+.flaeche-bild { min-height: 320px; position: relative; }
+.flaeche-bild img { width: 100%; height: 100%; object-fit: cover; }
+.flaeche-nr {
+  font-size: 17px; font-weight: 600; letter-spacing: .08em;
+  color: var(--blau-text); text-transform: uppercase;
+}
+.flaeche-block h3 { font-size: clamp(1.6rem, 3vw, 2.15rem); margin: 12px 0 0; }
+.flaeche-block .lead { margin-top: 14px; }
+
+/* ---------- Punkte-Listen größer ---------- */
+.punkte li { font-size: 18px; padding-left: 30px; line-height: 1.55; }
+.punkte li::before { top: 10px; width: 16px; height: 9px; border-width: 2px; }
+
+/* ---------- Telefon groß im Hero ---------- */
+.hero-tel {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: #fff; color: var(--tinte);
+  font-size: clamp(1.35rem, 3vw, 1.9rem); font-weight: 600; letter-spacing: -.01em;
+  padding: 16px 32px; border-radius: 980px; min-height: 68px;
+  text-decoration: none;
+  transition: transform .18s var(--kurve);
+}
+.hero-tel:hover { transform: scale(1.02); text-decoration: none; }
+.hero-tel span { font-size: 17px; font-weight: 400; color: var(--leise); display: block; }
+.hero-tel-inhalt { text-align: left; line-height: 1.15; }
+
+/* ---------- Nummer im Klartext in Aufruf-Sektionen ---------- */
+.nummer-gross {
+  display: block;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  font-weight: 600; letter-spacing: -.015em;
+  margin: 6px 0 0;
+}
+.nummer-gross a { color: inherit; text-decoration: none; }
+.nummer-gross a:hover { text-decoration: underline; }
+
+/* ---------- Feste Leiste am Handy ---------- */
+.tel-leiste { display: none; }
+
+@media (max-width: 900px) {
+  .tel-leiste {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 78;
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--linie);
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  }
+  .tel-leiste a {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    min-height: 56px; border-radius: 14px;
+    font-size: 18px; font-weight: 600; text-decoration: none;
+  }
+  .tel-leiste .anrufen { background: var(--blau); color: #fff; }
+  .tel-leiste .whatsapp { background: #25d366; color: #fff; }
+  body { padding-bottom: 88px; }        /* Platz für die Leiste */
+  .hero { height: auto; min-height: 0; padding: 56px 0 40px; }
+  .hero-inhalt { padding: 0 22px; }
+  .hero-pfeil { display: none; }
+  .hero-knoepfe { flex-direction: column; align-items: stretch; }
+  .hero-tel, .hero-knoepfe .knopf { width: 100%; justify-content: center; }
+  .entwurf-fahne { font-size: 15px; padding: 10px 14px; }
+  .wa-knopf { display: none; }          /* in der Leiste enthalten */
+  .chat-knopf { bottom: 106px; right: 14px; width: 46px; height: 46px; font-size: 17px; opacity: .82; }
+  .chat { bottom: 100px; }
+}
+
+/* ---------- Formular größer ---------- */
+input[type=text], input[type=tel], input[type=email], textarea, select {
+  padding: 16px 17px; font-size: 18px; border-radius: 12px;
+  min-height: 56px; border-width: 1.5px;
+}
+label.feld-label { font-size: 18px; margin-bottom: 10px; }
+.wahl span { font-size: 17px; padding: 12px 20px; min-height: 48px; display: inline-flex; align-items: center; }
+
+/* ---------- FAQ größer ---------- */
+.faq summary { font-size: 20px; padding: 22px 40px 22px 0; min-height: 56px; }
+.faq p { font-size: 18px; line-height: 1.65; }
+
+/* ---------- Weitere Größen ---------- */
+.probe-schritt h3 { font-size: 1.3rem; }
+.probe-schritt p { font-size: 17px; }
+.probe-schritt b { font-size: 17px; }
+.eigenschaft h3 { font-size: 1.3rem; }
+.eigenschaft p { font-size: 17px; }
+.verfahren-block p { font-size: 18px; }
+.verfahren-block h3 { font-size: 1.4rem; }
+.verfahren-nr { font-size: 18px; }
+.zahl-text { font-size: 19px; }
+.bewertung p { font-size: 18px; }
+.direkt b { font-size: 19px; }
+.direkt small { font-size: 17px; color: var(--leise); }
+.direkt a { min-height: 76px; }
+.direkt-icon { width: 46px; height: 46px; font-size: 20px; }
+.orte span { font-size: 17px; padding: 10px 19px; }
+.eyebrow { font-size: 17px; }
+.fuss { font-size: 17px; }
+.fuss h4 { font-size: 17px; }
+.fuss ul { gap: 12px; }
+.fuss a { display: inline-flex; align-items: center; min-height: 34px; }
+.fuss-unten { font-size: 17px; }
+.entwurf-fahne { font-size: 17px; padding: 12px 18px; }
+.marke-hell { font-size: 17px; }
+.weiter-karte span { font-size: 19px; }
+.schieber-marke { font-size: 17px; padding: 9px 17px; }
+.vergleich-karte h3 { font-size: 1.6rem; }
+.vergleich-karte li { font-size: 18px; padding-left: 26px; line-height: 1.5; }
+.vergleich-karte .klein { font-size: 17px; }
+.probe-kasten p { font-size: 18px; }
+.probe-kasten .punkte li { font-size: 18px; }
+.chat-eingabe input { font-size: 17px; }
+.blase { font-size: 17px; }
+
+@media (max-width: 900px) {
+  .flaeche-block { grid-template-columns: 1fr; }
+  .flaeche-block:nth-child(even) .flaeche-bild { order: 0; }
+  .flaeche-bild { min-height: 230px; }
+  .flaeche-block > .flaeche-inhalt { padding: 30px 26px; }
+}
+
+/* Chat-Vorschläge: Klickfläche auch außerhalb der Handy-Regeln */
+.chat-vorschlaege button {
+  min-height: 44px; font-size: 16px; padding: 11px 16px;
 }

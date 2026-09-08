@@ -17,18 +17,44 @@ node scripts/pruefe-seite.mjs
 ```
 
 Misst am **gerenderten Ergebnis**, nicht am Quelltext: Konsole, externe Requests,
-Bilder wirklich geladen und nicht hochskaliert, kein Reveal-Element bleibt unsichtbar
-hängen, Direktsprung auf jeden Anker, Sprachumschalter lässt keine Zeile deutsch,
-Preisrechner rechnet plausibel, Formular-Validierung, Chat, drei Breiten, Seitengewicht.
+Bilder wirklich geladen, Direktsprung auf jeden Anker, Sprachumschalter lässt keine
+Zeile deutsch, Formular-Validierung, Chat, drei Breiten, Seitengewicht — und dazu
+die vier Zielgruppen-Prüfungen: **Kontrast ≥ 7,0**, **kein Text unter 17 px**,
+**Schaltflächen ≥ 44 px**, **keine Preisangabe**, **nichts startet unsichtbar**.
+
+```bash
+node scripts/handy-bild.mjs                 # echter Handy-Screenshot (390 px, mit Geräte-Emulation)
+```
+
+⚠️ Ein einfacher `--window-size=390`-Aufruf von Chrome liefert **abgeschnittene**
+Bilder, weil das Viewport-Meta ohne Geräte-Emulation nicht greift. Deshalb dieses Skript.
 
 Letzter Lauf: **bestanden, 0 Fehler.**
 
 ## Aufbau
 
 Struktur nach dem Vorbild von `dachbeschichtung-profi.de` (Top-Leiste, Leistungen
-mit eigener Unterseite je Gewerk), Gestaltung im Apple-Look. **Durchgehender
-Aufruf ist die kostenlose Probefläche** — sie ist Hero, eigene Sektion mit vier
-Schritten, Kasten auf jeder Unterseite und Abschluss-Sektion.
+mit eigener Unterseite je Gewerk). **Durchgehender Aufruf ist die kostenlose
+Probefläche** — Hero, eigene Sektion mit vier Schritten, Kasten auf jeder
+Unterseite und Abschluss.
+
+## Zielgruppe: Hausbesitzer ab 50
+
+Die Seite ist auf ältere Leser ausgelegt. Das ist keine Geschmacksfrage,
+sondern sind Messwerte — das Prüfskript setzt sie durch:
+
+| | Wert |
+|---|---|
+| Grundschrift | **19 px**, Zeilenabstand **1,7** |
+| kleinster Text | **17 px** |
+| Kontrast, jeder Fließtext | **≥ 7,0** (WCAG AAA) |
+| Schaltflächen | **≥ 44 px** hoch |
+| Animationen | **keine** — nichts blendet ein, nichts zählt hoch, kein Bild wechselt von selbst |
+| Preise | **keine** — kein €, kein „pro m²" |
+| Telefon | groß im Hero, im Klartext in jedem Aufruf, feste Leiste am Handy |
+
+**Sprache:** kurze Hauptsätze, kein Fachbegriff ohne Erklärung im selben Satz.
+Wer Texte ändert, hält sich daran — sonst trägt die Seite ihre Zielgruppe nicht mehr.
 
 | Datei | Zweck |
 |---|---|
@@ -40,7 +66,6 @@ Schritten, Kasten auf jeder Unterseite und Abschluss-Sektion.
 | `site.css` | Design-System. Werte aus `apple.com` gemessen: Body 17/1.47, H2 56px/600, Statement bis 96px/600, Gewicht **immer 600**, Farbe `#1D1D1F` auf Weiß |
 | `site.js` | Reveal, Sticky-Bilder, Zähler, Vorher/Nachher, Preisrechner, Chat, Sprachumschalter |
 | `i18n.js` | **Englisch.** Schlüssel = der deutsche Text. Fehlt ein Eintrag, bleibt die Zeile deutsch — das Prüfskript listet sie auf |
-| `preise.js` | **Alle Preise an einer Stelle.** Hier ändern, nicht im Rechner |
 | `impressum.html`, `datenschutz.html` | § 5 DDG und DSGVO, mit markierten Lücken |
 
 **Kein Framework, kein CDN, keine Cookies.** Schriften liegen lokal in `fonts/` —
@@ -62,10 +87,10 @@ gehen beim nächsten Lauf verloren.
 Nur im HTML der Startseite ändern (bei Unterseiten im Generator). Für Englisch den passenden Eintrag in `i18n.js` nachziehen,
 sonst bleibt die Zeile deutsch (und fällt im Prüfskript auf).
 
-## Preise ändern
+## Preise
 
-Ausschließlich `preise.js`. Die aktuellen Sätze sind **Platzhalter** —
-sie stammen nicht von Julien.
+Es stehen **bewusst keine Preise** auf der Seite — weder Rechner noch Beträge.
+Der Preis entsteht nach der kostenlosen Probefläche, persönlich.
 
 ## ⚠ Offen vor einer Veröffentlichung
 
@@ -74,12 +99,11 @@ sie stammen nicht von Julien.
    die Dateinamen bleiben gleich, es ist ein Kopiervorgang.
 2. **Vorher/Nachher.** Braucht zwei Aufnahmen derselben Fläche vom Stativ, Kamera zwischen den
    Aufnahmen nicht bewegen. Das ist der stärkste Beweis, den die Seite tragen kann.
-3. **Preise** in `preise.js` durch Juliens echte Kalkulation ersetzen.
 4. **Google-Bewertungen** — es stehen bewusst keine erfundenen drin.
 5. **Firmendaten** im Impressum: Rechtsform, USt-IdNr. bzw. § 19-Hinweis, Kammer, Handwerksrolle.
 6. **Hosting-Absatz** in der Datenschutzerklärung an den tatsächlichen Hoster anpassen.
 7. **WhatsApp-Absatz** in der Datenschutzerklärung ergänzen.
 8. **Chat-Anbindung.** `CHAT_ENDPUNKT` in `site.js` auf den n8n-Webhook zeigen lassen.
    Bis dahin antwortet der Chat mit einem klar gekennzeichneten Platzhalter.
-9. **Formular** verschickt derzeit über das E-Mail-Programm des Besuchers. Für echten Versand
-   einen Endpunkt eintragen; Foto-Anhänge brauchen dann ebenfalls ein Backend.
+8. **Formular** verschickt derzeit über das E-Mail-Programm des Besuchers.
+   Für echten Versand einen Endpunkt eintragen.

@@ -3,6 +3,79 @@
    Fehlt ein Eintrag, bleibt die Zeile deutsch — das Prüfskript listet sie auf. */
 
 window.EBERT_EN = {
+  /* ---------- V4: einfache Sprache, Zielgruppe ab 50 ---------- */
+  'Wir reinigen ein Stück Ihrer Einfahrt, Ihres Daches oder Ihrer Terrasse. Kostenlos, bei Ihnen zu Hause. Danach entscheiden Sie in Ruhe.':
+    'We clean a section of your driveway, your roof or your patio. Free of charge, at your home. Then you decide in your own time.',
+  'Rufen Sie uns einfach an': 'Just give us a call',
+  'Gießen und Umgebung · seit über 10 Jahren': 'Gießen and surrounding area · for over 10 years',
+  'Probefläche anfragen': 'Request a test area',
+  'Sie sehen das Ergebnis an Ihrer eigenen Fläche. Vorher zahlen Sie nichts.':
+    'You see the result on your own surface. You pay nothing beforehand.',
+  'Rufen Sie an oder schreiben Sie uns. Mehr brauchen wir nicht.':
+    'Call us or send us a message. That is all we need.',
+  'Zu einem Termin, der Ihnen passt. Die Anfahrt ist kostenlos.':
+    'At a time that suits you. Travel is free of charge.',
+  'Etwa einen Quadratmeter. Den Unterschied sehen Sie sofort.':
+    'About one square metre. You see the difference straight away.',
+  'Sie bekommen einen festen Preis. Sagen Sie ab, kostet es nichts.':
+    'You get a fixed price. If you say no, it costs nothing.',
+  'Jetzt anrufen: 0160 83 59 784': 'Call now: 0160 83 59 784',
+  'Jetzt anrufen': 'Call now',
+  'Über WhatsApp schreiben': 'Message us on WhatsApp',
+  'Die meisten Flächen müssen nicht erneuert werden. Sie müssen nur sauber werden. Das spart Ihnen sehr viel Geld.':
+    'Most surfaces do not need replacing. They just need cleaning. That saves you a great deal of money.',
+  'Rund ums Haus': 'Around the house',
+  'Pflaster, Beton und Asphalt werden mit den Jahren grau und grün. Wir holen die alte Farbe zurück.':
+    'Paving, concrete and asphalt turn grey and green over the years. We bring the old colour back.',
+  'Wir arbeiten mit einem Gerät, das den Druck gleichmäßig verteilt. So bleiben keine Streifen zurück.':
+    'We use a machine that spreads the pressure evenly. That way no streaks are left behind.',
+  'Die Fugen werden gespült und auf Wunsch neu gefüllt':
+    'The joints are flushed out and refilled on request',
+  'Auf Wunsch mit Schutzschicht und fünf Jahren Garantie':
+    'With a protective layer and a five-year guarantee on request',
+  'Mehr über Gehwege und Einfahrten': 'More about paths and driveways',
+  'Moos hält Feuchtigkeit im Ziegel und verstopft die Dachrinne. Wir reinigen das Dach, statt es zu erneuern.':
+    'Moss holds moisture in the tile and blocks the gutter. We clean the roof instead of replacing it.',
+  'Ziegel, Betonsteine, Blech und Wellplatten': 'Clay tiles, concrete tiles, sheet metal and corrugated sheets',
+  'Auch Carport, Terrassendach und Glasdach': 'Carports, patio roofs and glass roofs too',
+  'Die Dachrinne machen wir gleich mit sauber': 'We clean the gutter at the same time',
+  'Mehr über Dach und Überdachung': 'More about roofs and canopies',
+  'Empfindliche Steine vertragen keinen starken Druck. Wir arbeiten so, wie der Stein es verträgt.':
+    'Delicate stone cannot take strong pressure. We work the way the stone can handle.',
+  'Marmor, Granit, Sandstein und Feinsteinzeug': 'Marble, granite, sandstone and porcelain',
+  'Treppen und Eingänge machen wir von Hand nach': 'We finish steps and entrances by hand',
+  'Wir verwenden Mittel, die sich in der Natur abbauen': 'We use products that break down naturally',
+  'Mehr über Terrasse und Naturstein': 'More about patios and natural stone',
+  'Bevor Sie neu verlegen oder neu streichen lassen: meistens ist alles noch in Ordnung. Es ist nur schmutzig.':
+    'Before you have anything relaid or repainted: usually everything is still fine. It is just dirty.',
+  'Pflaster neu verlegen oder die Fassade neu streichen': 'Relaying paving or repainting the facade',
+  'Neues Material und Entsorgung': 'New materials and disposal',
+  'Oft ist ein Gerüst nötig': 'Scaffolding is often needed',
+  'Am Ende sieht es anders aus als vorher': 'In the end it looks different from before',
+  'Beim Pflaster muss auch der Untergrund neu': 'With paving the base has to be redone as well',
+  'Dieselbe Fläche, nur wieder sauber': 'The same surface, just clean again',
+  'Meist an einem einzigen Tag fertig': 'Usually finished in a single day',
+  'Kein neues Material, keine Entsorgung': 'No new materials, no disposal',
+  'Kein Gerüst nötig': 'No scaffolding needed',
+  'Ihre Fläche sieht wieder aus wie früher': 'Your surface looks the way it used to',
+  'Mit Schutzschicht fünf Jahre Garantie': 'Five-year guarantee with a protective layer',
+  'Wenn eine Fläche wirklich nicht mehr zu retten ist, sagen wir Ihnen das ehrlich. Wir verkaufen Ihnen keine Reinigung, die nichts bringt.':
+    'If a surface really is beyond saving, we tell you honestly. We will not sell you a cleaning job that achieves nothing.',
+  'Am schnellsten geht es mit einem Anruf. Wir sind persönlich am Telefon.':
+    'The quickest way is a phone call. You speak to us personally.',
+  'Ihr Name': 'Your name',
+  'Ihre Telefonnummer': 'Your phone number',
+  'Ihr Ort': 'Your town',
+  'Worum geht es? (freiwillig)': 'What is it about? (optional)',
+  'Zum Beispiel: Einfahrt aus Pflaster, ungefähr 80 Quadratmeter, viel Moos.':
+    'For example: block-paved driveway, about 80 square metres, a lot of moss.',
+  'Wir melden uns telefonisch bei Ihnen. Ihre Angaben verwenden wir nur dafür. Mehr dazu in der Datenschutzerklärung.':
+    'We will call you back. We use your details only for that. More in the privacy policy.',
+  'Wir melden uns telefonisch bei Ihnen. Ihre Angaben verwenden wir nur dafür. Mehr dazu in der':
+    'We will call you back. We use your details only for that. More in the',
+  'Anrufen': 'Call',
+  'Ablauf': 'How it works',
+
   /* Nachtraege V3 */
   'Mehr zu Gehwegen und Einfahrten': 'More on paths and driveways',
   'Mehr zu Dach und Überdachung': 'More on roofs and canopies',

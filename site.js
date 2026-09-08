@@ -1,4 +1,5 @@
-/* Ebert V2 — kein Framework, keine externen Requests. */
+/* Ebert V4 — für Leser ab 50: ruhig, gross, ohne Preise.
+   Kein Framework, keine externen Requests, keine Scroll-Animationen. */
 (function () {
   'use strict';
 
@@ -126,115 +127,16 @@
     letztes = y;
   }, { passive: true });
 
-  /* ================= Reveal =================
-     Wichtig: nichts darf unsichtbar hängen bleiben. Drei Sicherungen —
-     (1) Beobachter, (2) sofort alles zeigen was schon im Bild ist
-     (greift beim direkten Sprung auf einen Anker), (3) Not-Timer. */
-  function zeigeSichtbare() {
-    document.querySelectorAll('.zeig:not(.da)').forEach(function (el) {
-      var r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('da');
-    });
-  }
+  /* ================= Sichtbarkeit =================
+     V4: Für die Zielgruppe ab 50 blendet nichts ein. Alles steht sofort da.
+     Die Klasse bleibt im HTML, damit die Struktur unverändert bleibt. */
+  document.querySelectorAll('.zeig').forEach(function (el) { el.classList.add('da'); });
 
-  if ('IntersectionObserver' in window && !ruhig) {
-    var beob = new IntersectionObserver(function (eintraege) {
-      eintraege.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var geschwister = [].slice.call(e.target.parentNode.children).filter(function (c) {
-          return c.classList.contains('zeig');
-        });
-        var pos = geschwister.indexOf(e.target);
-        setTimeout(function () { e.target.classList.add('da'); }, Math.max(0, pos) * 110);
-        beob.unobserve(e.target);
-      });
-    }, { threshold: 0.02, rootMargin: '0px 0px -4% 0px' });
-    document.querySelectorAll('.zeig').forEach(function (el) { beob.observe(el); });
-
-    zeigeSichtbare();
-    window.addEventListener('load', zeigeSichtbare);
-    window.addEventListener('hashchange', function () { setTimeout(zeigeSichtbare, 60); });
-    window.addEventListener('scroll', zeigeSichtbare, { passive: true });
-    setTimeout(zeigeSichtbare, 1200);
-  } else {
-    document.querySelectorAll('.zeig').forEach(function (el) { el.classList.add('da'); });
-  }
-
-  /* ================= Statement Wort für Wort ================= */
-  document.querySelectorAll('[data-worte]').forEach(function (el) {
-    var teile = [].slice.call(el.childNodes);
-    el.textContent = '';
-    teile.forEach(function (teil) {
-      var klasse = teil.nodeType === 1 ? teil.className : '';
-      var text = teil.textContent;
-      text.split(/(\s+)/).forEach(function (w) {
-        if (!w.trim()) { el.appendChild(document.createTextNode(w)); return; }
-        var s = document.createElement('span');
-        s.className = 'wort' + (klasse ? ' ' + klasse : '');
-        s.textContent = w;
-        el.appendChild(s);
-      });
-    });
-    var woerter = el.querySelectorAll('.wort');
-    if (ruhig || !('IntersectionObserver' in window)) {
-      woerter.forEach(function (w) { w.classList.add('da'); });
-      return;
-    }
-    var wb = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        woerter.forEach(function (w, i) {
-          setTimeout(function () { w.classList.add('da'); }, i * 90);
-        });
-        wb.unobserve(e.target);
-      });
-    }, { threshold: 0.25 });
-    wb.observe(el);
-    // Sicherung: was nach 1,4 s noch verborgen und im Bild ist, wird gezeigt
-    setTimeout(function () {
-      var r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) {
-        woerter.forEach(function (w) { w.classList.add('da'); });
-      }
-    }, 1400);
+  /* ================= Zahlen =================
+     V4: keine Zähl-Animation mehr, der Wert steht sofort. */
+  document.querySelectorAll('[data-zaehl]').forEach(function (el) {
+    el.textContent = el.dataset.zaehl + (el.dataset.suffix || '');
   });
-
-  /* ================= Sticky-Flächen ================= */
-  var bloecke = document.querySelectorAll('.flaeche-block');
-  var flaechenBilder = document.querySelectorAll('.sticky-bild img');
-  if (bloecke.length && flaechenBilder.length && 'IntersectionObserver' in window) {
-    var fb = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var i = e.target.dataset.block;
-        flaechenBilder.forEach(function (b) { b.classList.toggle('an', b.dataset.flaeche === i); });
-      });
-    }, { threshold: 0.5 });
-    bloecke.forEach(function (b) { fb.observe(b); });
-  }
-
-  /* ================= Zahlen hochzählen ================= */
-  var zahlen = document.querySelectorAll('[data-zaehl]');
-  if (zahlen.length && 'IntersectionObserver' in window) {
-    var zb = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var el = e.target;
-        var ziel = parseInt(el.dataset.zaehl, 10);
-        var suffix = el.dataset.suffix || '';
-        if (ruhig) { el.textContent = ziel + suffix; zb.unobserve(el); return; }
-        var start = performance.now(), dauer = 1400;
-        (function schritt(jetzt) {
-          var p = Math.min(1, (jetzt - start) / dauer);
-          var e2 = 1 - Math.pow(1 - p, 3);
-          el.textContent = Math.round(ziel * e2) + suffix;
-          if (p < 1) requestAnimationFrame(schritt);
-        })(start);
-        zb.unobserve(el);
-      });
-    }, { threshold: 0.6 });
-    zahlen.forEach(function (z) { zb.observe(z); });
-  }
 
   /* ================= Vorher/Nachher ================= */
   var schieber = document.getElementById('schieber');
@@ -269,100 +171,6 @@
     setze(50);
   }
 
-  /* ================= Preisrechner ================= */
-  var P = window.EBERT_PREISE;
-  var regler = document.getElementById('flaeche-regler');
-  var flaecheAn = document.getElementById('flaeche-anzeige');
-  var preisAn = document.getElementById('preis-anzeige');
-
-  function euro(n) {
-    return new Intl.NumberFormat(sprache === 'en' ? 'en-GB' : 'de-DE', {
-      style: 'currency', currency: 'EUR', maximumFractionDigits: 0
-    }).format(n);
-  }
-
-  function rechne() {
-    if (!P || !regler || !preisAn) return;
-    var qm = parseInt(regler.value, 10);
-    var leistung = document.querySelector('input[name="leistung"]:checked');
-    var satz = P.leistungen[leistung ? leistung.value : 'pflaster'];
-    if (!satz) return;
-
-    var faktor = 1;
-    P.staffel.forEach(function (s) { if (qm >= s.ab) faktor = s.faktor; });
-
-    var von = satz.von * qm * faktor;
-    var bis = satz.bis * qm * faktor;
-
-    document.querySelectorAll('input[name="extra"]:checked').forEach(function (e) {
-      var x = P.extras[e.value];
-      if (x) { von += x.von * qm * faktor; bis += x.bis * qm * faktor; }
-    });
-
-    von = Math.max(P.grundpreis, von);
-    bis = Math.max(P.grundpreis * 1.4, bis);
-
-    if (flaecheAn) flaecheAn.textContent = qm + ' m²';
-    preisAn.textContent = euro(Math.round(von / 10) * 10) + ' – ' + euro(Math.round(bis / 10) * 10);
-  }
-
-  if (regler) {
-    regler.addEventListener('input', rechne);
-    document.querySelectorAll('input[name="leistung"], input[name="extra"]').forEach(function (i) {
-      i.addEventListener('change', rechne);
-    });
-    document.addEventListener('ebert:lang', rechne);
-    rechne();
-  }
-
-  /* ================= Termin-Slots ================= */
-  var slots = document.getElementById('slots');
-  if (slots) {
-    var tage = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-    var heute = new Date();
-    var gebaut = 0, i = 1;
-    while (gebaut < 3 && i < 10) {
-      var d = new Date(heute.getTime() + i * 86400000);
-      if (d.getDay() !== 0) {
-        ['vormittags', 'nachmittags'].forEach(function (zeit) {
-          var name = tage[d.getDay() - 1] + ', ' + d.getDate() + '.' + (d.getMonth() + 1) + '. ' + zeit;
-          var l = document.createElement('label');
-          l.innerHTML = '<input type="radio" name="slot" value="' + name + '"><span>' + name + '</span>';
-          slots.appendChild(l);
-        });
-        gebaut++;
-      }
-      i++;
-    }
-    var frei = document.createElement('label');
-    frei.innerHTML = '<input type="radio" name="slot" value="egal" checked><span>Zeit egal, ruft mich an</span>';
-    slots.appendChild(frei);
-  }
-
-  /* ================= Foto-Vorschau ================= */
-  var fotoFeld = document.getElementById('f-foto');
-  var vorschau = document.getElementById('upload-vorschau');
-  var uploadText = document.getElementById('upload-text');
-  if (fotoFeld && vorschau) {
-    fotoFeld.addEventListener('change', function () {
-      vorschau.innerHTML = '';
-      var n = fotoFeld.files.length;
-      [].slice.call(fotoFeld.files).slice(0, 6).forEach(function (f) {
-        if (!f.type.startsWith('image/')) return;
-        var img = document.createElement('img');
-        img.src = URL.createObjectURL(f);
-        img.alt = f.name;
-        img.onload = function () { URL.revokeObjectURL(img.src); };
-        vorschau.appendChild(img);
-      });
-      if (uploadText && n) {
-        uploadText.textContent = sprache === 'en'
-          ? n + ' ' + DYN.fotoHinweis
-          : n + ' Foto(s) ausgewählt — bitte per WhatsApp schicken, der Entwurf kann Dateien noch nicht anhängen.';
-      }
-    });
-  }
-
   /* ================= Anfrageformular ================= */
   var form = document.getElementById('anfrage-form');
   var melde = document.getElementById('melde');
@@ -380,17 +188,12 @@
         return;
       }
 
-      var slot = form.querySelector('input[name="slot"]:checked');
       var text =
         'Anfrage über die Website\n\n' +
         'Name: ' + name + '\n' +
-        'Ort / PLZ: ' + ort + '\n' +
         'Telefon: ' + tel + '\n' +
-        'E-Mail: ' + (form.email.value.trim() || '—') + '\n' +
-        'Wunschtermin: ' + (slot ? slot.value : '—') + '\n' +
-        (preisAn ? 'Rechner-Schätzung: ' + preisAn.textContent + '\n' : '') +
-        (fotoFeld && fotoFeld.files.length ? 'Fotos: ' + fotoFeld.files.length + ' (folgen per WhatsApp)\n' : '') +
-        '\n' + (form.nachricht.value.trim() || '');
+        'Ort: ' + ort + '\n\n' +
+        (form.nachricht.value.trim() || '');
 
       melde.className = 'melde gut';
       melde.textContent = sprache === 'en' ? DYN.gesendet
