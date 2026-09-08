@@ -287,6 +287,33 @@ else L.klein.slice(0, 8).forEach(t => bad('Schrift zu klein: ' + t));
 if (!L.flach?.length) ok('alle Schaltflächen ≥ 44 px hoch');
 else L.flach.slice(0, 8).forEach(t => bad('Schaltfläche zu flach: ' + t));
 
+/* ---------- 12b. Animationen erreichen ihren Endzustand ---------- */
+kopf('12b. Animationen enden korrekt');
+await send('Page.navigate', { url: URL_.split('#')[0] });
+await warte(600);
+await js(`window.scrollTo(0, document.body.scrollHeight); 1`);
+await warte(2600);
+const anim = await js(`(() => {
+  const zahlen = [...document.querySelectorAll('[data-zaehl]')].map(e => ({
+    ist: e.textContent.replace(/\\D/g, ''), soll: e.dataset.zaehl
+  }));
+  const haengt = [...document.querySelectorAll('.zeig:not(.da)')]
+    .filter(e => { const r = e.getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; })
+    .map(e => (e.className || e.tagName).toString().split(' ')[0]);
+  const verschoben = [...document.querySelectorAll('.zeig.da')].filter(e => {
+    const t = getComputedStyle(e).transform;
+    return t && t !== 'none' && !t.includes('matrix(1, 0, 0, 1, 0, 0)');
+  }).length;
+  return JSON.stringify({ zahlen, haengt: [...new Set(haengt)], verschoben });
+})()`);
+const A = JSON.parse(anim || '{}');
+const falsch = (A.zahlen || []).filter(z => z.ist !== z.soll);
+if (!A.zahlen?.length) ok('keine Zähl-Animation auf dieser Seite');
+else if (!falsch.length) ok('alle Zahlen erreichen ihren Endwert (' + A.zahlen.map(z => z.soll).join(', ') + ')');
+else falsch.forEach(z => bad('Zahl bleibt bei ' + z.ist + ' statt ' + z.soll));
+if (!A.haengt?.length) ok('kein sichtbares Element bleibt in der Bewegung hängen');
+else A.haengt.slice(0, 5).forEach(t => bad('bleibt verschoben: ' + t));
+
 /* ---------- 13. Keine Preise ---------- */
 kopf('13. Keine Preisangaben');
 const preise = await js(`(() => {

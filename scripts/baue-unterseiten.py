@@ -254,7 +254,7 @@ def seite_html(s):
 
     weitere = ''.join(f'''
         <a class="weiter-karte zeig" href="{x['datei']}">
-          <img src="{x['bild']}" alt="" loading="lazy" width="1600" height="1260">
+          <img src="{x['bild']}" alt="" loading="lazy" width="1200" height="944">
           <span>{re.sub(r"&amp;", "&", x['titel'])}</span>
         </a>''' for x in andere[:3])
 
@@ -321,7 +321,7 @@ def seite_html(s):
 
   <section class="unter-hero">
     <div class="unter-hero-bild">
-      <img src="{s['bild']}" alt="{s['bild_alt']}" fetchpriority="high" width="1600" height="1260">
+      <img src="{s['bild']}" alt="{s['bild_alt']}" fetchpriority="high" width="1200" height="944">
     </div>
     <div class="huelle unter-hero-text">
       <p class="marke-hell">{s['dach']}</p>

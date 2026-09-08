@@ -49,12 +49,28 @@ sondern sind Messwerte — das Prüfskript setzt sie durch:
 | kleinster Text | **17 px** |
 | Kontrast, jeder Fließtext | **≥ 7,0** (WCAG AAA) |
 | Schaltflächen | **≥ 44 px** hoch |
-| Animationen | **keine** — nichts blendet ein, nichts zählt hoch, kein Bild wechselt von selbst |
+| Animationen | **nur unbedenkliche** — siehe unten |
 | Preise | **keine** — kein €, kein „pro m²" |
 | Telefon | groß im Hero, im Klartext in jedem Aufruf, feste Leiste am Handy |
 
 **Sprache:** kurze Hauptsätze, kein Fachbegriff ohne Erklärung im selben Satz.
 Wer Texte ändert, hält sich daran — sonst trägt die Seite ihre Zielgruppe nicht mehr.
+
+### Welche Animation erlaubt ist
+
+Die Trennlinie: **Animiert es das Erscheinen von Inhalt, oder nur das Aussehen
+von bereits sichtbarem Inhalt?**
+
+| erlaubt | verboten |
+|---|---|
+| Element **gleitet** sanft hoch (`transform`), bleibt dabei voll lesbar | Element **blendet ein** (`opacity 0→1`) |
+| Zahl **zählt hoch** — Endwert steht am Schluss | Bild **tauscht sich selbst aus** beim Scrollen |
+| Bild **zoomt** langsam, ist durchgehend sichtbar | alles, was Inhalt zeitweise unsichtbar macht |
+| Aufklappen, Hover, der Vorher/Nachher-Regler | |
+
+`prefers-reduced-motion` schaltet alles ab. Das Prüfskript setzt beides durch:
+**nichts startet unsichtbar** (Gruppe 14) und **jede Animation erreicht ihren
+Endzustand** (Gruppe 12b).
 
 | Datei | Zweck |
 |---|---|

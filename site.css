@@ -180,7 +180,15 @@ h1, h2, h3, h4 {
 .brenner.auf span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
 /* ---------- Reveal ---------- */
-.zeig { opacity: 1; transform: none; }   /* V4: nichts blendet ein — alles steht sofort da */
+/* Reveal V4.1: Der Text ist IMMER voll lesbar. Animiert wird nur die
+   Position, nie die Sichtbarkeit — so kann nichts unsichtbar hängen bleiben. */
+.zeig {
+  opacity: 1;
+  transform: translateY(26px);
+  transition: transform .75s var(--kurve);
+  will-change: transform;
+}
+.zeig.da { transform: none; }
 .wort { display: inline; opacity: 1; transform: none; }
 
 /* ---------- Hero ---------- */
@@ -192,7 +200,10 @@ h1, h2, h3, h4 {
 .hero-bild { position: absolute; inset: 0; }
 .hero-bild img {
   width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.08);
+  animation: ruhig-heran 7s var(--kurve) forwards;
 }
+@keyframes ruhig-heran { to { transform: scale(1); } }
 .hero-bild::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.28) 42%, rgba(0,0,0,.82) 100%);
@@ -206,7 +217,12 @@ h1, h2, h3, h4 {
 }
 .hero-pfeil {
   position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
-  z-index: 2; color: rgba(255,255,255,.7); font-size: 24px;
+  z-index: 2; color: rgba(255,255,255,.8); font-size: 26px;
+  animation: wippen 2.8s ease-in-out infinite;
+}
+@keyframes wippen {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 7px); }
 }
 
 /* ---------- Abschnitte ---------- */
@@ -258,7 +274,7 @@ h1, h2, h3, h4 {
 
 /* ---------- Vorher/Nachher ---------- */
 .schieber {
-  position: relative; width: 100%; max-width: 1100px; margin: 0 auto; aspect-ratio: 16 / 10; max-height: 640px;
+  position: relative; width: 100%; max-width: 768px; margin: 0 auto; aspect-ratio: 16 / 10; max-height: 640px;
   overflow: hidden; border-radius: 22px; background: #111;
   user-select: none; touch-action: pan-y; cursor: ew-resize;
 }
@@ -519,6 +535,7 @@ textarea { min-height: 110px; resize: vertical; }
     transition-duration: .001ms !important;
   }
   .zeig, .wort { opacity: 1 !important; transform: none !important; }
+  .hero-pfeil { animation: none !important; }
   .sticky-bild img.an { opacity: 1; }
   .hero-bild img { transform: none; animation: none; }
 }

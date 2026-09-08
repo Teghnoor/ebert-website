@@ -127,16 +127,77 @@
     letztes = y;
   }, { passive: true });
 
-  /* ================= Sichtbarkeit =================
-     V4: Für die Zielgruppe ab 50 blendet nichts ein. Alles steht sofort da.
-     Die Klasse bleibt im HTML, damit die Struktur unverändert bleibt. */
-  document.querySelectorAll('.zeig').forEach(function (el) { el.classList.add('da'); });
+  /* ================= Reveal =================
+     V4.1: Der Text ist immer voll lesbar (siehe site.css) — animiert wird
+     nur die Position. Trotzdem drei Sicherungen, damit nichts hängen bleibt. */
+  function zeigeSichtbare() {
+    document.querySelectorAll('.zeig:not(.da)').forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 80 && r.bottom > -80) el.classList.add('da');
+    });
+  }
+
+  if ('IntersectionObserver' in window && !ruhig) {
+    var beob = new IntersectionObserver(function (eintraege) {
+      eintraege.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var geschwister = [].slice.call(e.target.parentNode.children).filter(function (c) {
+          return c.classList.contains('zeig');
+        });
+        var pos = geschwister.indexOf(e.target);
+        setTimeout(function () { e.target.classList.add('da'); }, Math.max(0, pos) * 90);
+        beob.unobserve(e.target);
+      });
+    }, { threshold: 0.02, rootMargin: '0px 0px -3% 0px' });
+    document.querySelectorAll('.zeig').forEach(function (el) { beob.observe(el); });
+
+    zeigeSichtbare();
+    window.addEventListener('load', zeigeSichtbare);
+    window.addEventListener('hashchange', function () { setTimeout(zeigeSichtbare, 60); });
+    window.addEventListener('scroll', zeigeSichtbare, { passive: true });
+    setTimeout(zeigeSichtbare, 1400);
+  } else {
+    document.querySelectorAll('.zeig').forEach(function (el) { el.classList.add('da'); });
+  }
 
   /* ================= Zahlen =================
-     V4: keine Zähl-Animation mehr, der Wert steht sofort. */
-  document.querySelectorAll('[data-zaehl]').forEach(function (el) {
-    el.textContent = el.dataset.zaehl + (el.dataset.suffix || '');
-  });
+     Zählt beim Eintritt hoch. Unbedenklich: das Element ist durchgehend
+     sichtbar, am Ende steht der richtige Wert. Bei "Bewegung reduzieren"
+     und ohne Beobachter steht er sofort da. */
+  var zahlen = document.querySelectorAll('[data-zaehl]');
+  if (!zahlen.length) { /* nichts zu tun */ }
+  else if (ruhig || !('IntersectionObserver' in window)) {
+    zahlen.forEach(function (el) { el.textContent = el.dataset.zaehl + (el.dataset.suffix || ''); });
+  } else {
+    zahlen.forEach(function (el) { el.textContent = '0' + (el.dataset.suffix || ''); });
+    var zb = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        var ziel = parseInt(el.dataset.zaehl, 10);
+        var suffix = el.dataset.suffix || '';
+        var start = performance.now(), dauer = 1600;
+        (function schritt(jetzt) {
+          var p = Math.min(1, (jetzt - start) / dauer);
+          el.textContent = Math.round(ziel * (1 - Math.pow(1 - p, 3))) + suffix;
+          if (p < 1) requestAnimationFrame(schritt);
+        })(start);
+        zb.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    zahlen.forEach(function (z) { zb.observe(z); });
+    // Sicherung: nach 3 s steht der Wert auf jeden Fall
+    setTimeout(function () {
+      zahlen.forEach(function (el) {
+        if (el.textContent.replace(/\D/g, '') !== el.dataset.zaehl) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) {
+            el.textContent = el.dataset.zaehl + (el.dataset.suffix || '');
+          }
+        }
+      });
+    }, 3000);
+  }
 
   /* ================= Vorher/Nachher ================= */
   var schieber = document.getElementById('schieber');
