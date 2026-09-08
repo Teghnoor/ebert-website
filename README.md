@@ -3,7 +3,16 @@
 Entwurf für **Julien Ebert**, Gießen. Gebaut von Brandscale als Pitch-Stück —
 **nicht veröffentlichen**, solange die offenen Punkte unten nicht geklärt sind.
 
-## Ansehen
+## Live
+
+**https://teghnoor.github.io/ebert-website/** — GitHub Pages, Branch `main`.
+Jeder Push auf `main` veröffentlicht neu (Build dauert ~1 Minute).
+
+Die Seite trägt `noindex, nofollow`, eine Entwurfs-Fahne und im Fuß den Hinweis
+„Design-Entwurf von Brandscale · kein Angebot der Firma Ebert" — sie darf nicht
+mit einem echten Auftritt von Julien verwechselt werden.
+
+## Lokal ansehen
 
 ```bash
 python3 -m http.server 8899      # im Projektordner
@@ -82,6 +91,7 @@ Endzustand** (Gruppe 12b).
 | `site.css` | Design-System. Werte aus `apple.com` gemessen: Body 17/1.47, H2 56px/600, Statement bis 96px/600, Gewicht **immer 600**, Farbe `#1D1D1F` auf Weiß |
 | `site.js` | Reveal, Sticky-Bilder, Zähler, Vorher/Nachher, Preisrechner, Chat, Sprachumschalter |
 | `i18n.js` | **Englisch.** Schlüssel = der deutsche Text. Fehlt ein Eintrag, bleibt die Zeile deutsch — das Prüfskript listet sie auf |
+| `termin.js` | **Google-Kalender-Buchungsseite.** Nur hier eintragen — mit Anleitung |
 | `impressum.html`, `datenschutz.html` | § 5 DDG und DSGVO, mit markierten Lücken |
 
 **Kein Framework, kein CDN, keine Cookies.** Schriften liegen lokal in `fonts/` —
@@ -123,3 +133,11 @@ Der Preis entsteht nach der kostenlosen Probefläche, persönlich.
    Bis dahin antwortet der Chat mit einem klar gekennzeichneten Platzhalter.
 8. **Formular** verschickt derzeit über das E-Mail-Programm des Besuchers.
    Für echten Versand einen Endpunkt eintragen.
+9. **Terminbuchung.** `termin.js` enthält die Anleitung: Google Kalender →
+   Erstellen → Terminplan → Buchungsseite kopieren. Ein kostenloses Konto
+   erlaubt genau einen Terminplan, das reicht.
+   ⚠️ **Der Kalender lädt bewusst erst nach einem Klick.** Wird das auf ein
+   direkt geladenes iFrame umgestellt, ist ein Cookie-Banner Pflicht und die
+   Aussage „kein Cookie-Banner nötig" fällt weg.
+   ⚠️ Vorher mit Julien klären, ob feste Slots zu seinem Baustellen-Alltag
+   passen — Besichtigungen mit Fahrzeit lassen sich am Telefon besser bündeln.
